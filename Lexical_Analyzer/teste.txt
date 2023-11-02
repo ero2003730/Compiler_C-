@@ -1,6 +1,5 @@
 /*
-Preciso arrumar:
-Os '/' dos comentarios estao sendo lidos como tokens e sendo impressos, esta errado
+Comentario
 */
 
 int main(void) {
