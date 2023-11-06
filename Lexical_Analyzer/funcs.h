@@ -2,6 +2,7 @@
 #define FUNCS_H
 
 #include <stdio.h>
+#include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
 #include <stdbool.h>
@@ -11,12 +12,11 @@
 
 // Variáveis globais que ajudarão a fazer o exercício
 extern char *buffer;     // Buffer principal
-extern int lines;        // Contador de linhas
 extern int position;     // Contador de posição
 extern int max_position; // Variável de auxílio
 extern int reprocess;    // Variável estática para controlar o reprocessamento
 extern int max_position; // Variável de auxílio
-extern bool used;        // Variável de controle para ser utilizado ou não
+
 // extern HashItem hashTable[TABLE_SIZE];
 
 typedef enum
@@ -65,7 +65,6 @@ typedef struct HashItem
 
 int fill_buffer(FILE *file);                                                 // Função para preencher o buffer
 void deallocate_buffer(struct Lexema **lexema);                              // Função para desalocar memória
-int get_line();                                                              // Função para saber a respectiva linha
 char get_next_char(FILE *file);                                              // Função que irá retornar o caractere para printar
 void get_lexema(char *lexemaBuffer, struct Lexema **lexema, int aux, int i); // Função que irá pegar o lexema e verificar o token
 void allocate_buffer(struct Lexema **lexema);                                // Função para alocar memória

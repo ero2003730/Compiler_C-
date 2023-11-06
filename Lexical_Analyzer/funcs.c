@@ -1,15 +1,9 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stdbool.h>
 #include "funcs.h"
 
 // Variáveis globais que ajudarão a fazer o exercício
 char *buffer = NULL;
-int lines = 1;
 int position = 0;
 int max_position = 0;
-bool used = true;
 int reprocess = 0;
 char last_char;
 // Definição da tabela hash
@@ -59,33 +53,30 @@ int fill_buffer(FILE *file)
     return strlen(aux_buffer);
 }
 
-int get_line()
-{
-    // Apenas um get para retornar. Como lines é uma variável global, para retornar seu valor, é
-    // necessário criar um get para poder valor retornar esse valor
-    return lines;
-}
-
-bool get_used()
-{
-    return used;
-}
-
+// Função que irá retornar o próximo char
 char get_next_char(FILE *file)
 {
-    // printf("Reprocess: %d, Position: %d, Max Position: %d\n", reprocess, position, max_position); // Mostre variáveis antes de qualquer operação
 
+    // Quando reprocess == 1, então preciso retornar o último caractere, caso contrário, continua normalmente
     if (reprocess)
     {
         reprocess = 0;
-        // printf("Reprocessando o caractere: %c\n", buffer[position - 1]); // Mostre qual caractere será reprocessado
         return buffer[position - 1];
     }
+
+    /*
+        Uma verificação de posição. No caso inicial, ambos são igual a 0, logo mandar preencher o buffer
+        com as informações do arquivo. Caso max_position seja = -1, quer dizer que nada foi inserido no
+        buffer, portanto, não tem nada no arquivo então apenas retornar. Depois disso, por causa da main,
+        get_next_char é chamada até que o arquivo esteja vazio. Porém, como max_position recebeu o tamanho
+        do buffer, quando a posição for igual a max_position, então quer dizer que chegou ao final do vetor
+        do buffer, então passaria no if, então iria preencher de novo. Caso não fosse preenchido nada então
+        apenas retornar (encerrar o processo), caso contrário, repetir processo
+        */
 
     if (position == max_position)
     {
         max_position = fill_buffer(file);
-        // printf("Buffer preenchido. Nova Max Position: %d\n", max_position); // Mostre a nova posição máxima após preencher o buffer
 
         if (max_position == -1)
         {
@@ -95,10 +86,11 @@ char get_next_char(FILE *file)
     }
 
     char c = buffer[position++];
-    // printf("Caractere atual: %c, Nova posição: %d\n", c, position); // Mostre o caractere e a nova posição
+
     return c;
 }
 
+// Função que irá retornar a posição, da coluna da matriz, dos caracteres da linguagem
 int get_position(char c)
 {
     if (isalpha(c))
@@ -304,6 +296,7 @@ void get_lexema(char *lexemaBuffer, struct Lexema **lexema, int aux, int i)
     }
 }
 
+// Função que irá retornar o token do lexema
 char *return_Token(int token)
 {
     switch (token)

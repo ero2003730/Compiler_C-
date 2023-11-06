@@ -43,7 +43,7 @@ int main(int argc, char *argv[])
         {11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11},  // estado q11 (erro)
         {10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10}}; // estado de transicao para '!=' pois estava dando erro
 
-    // Aariaveis auxiliares
+    // Variaveis auxiliares
     char c;
     int estado = 0, novo_estado = 0;
     int coluna = 0;
@@ -195,6 +195,7 @@ int main(int argc, char *argv[])
                 aux++;
             }
         }
+
 
         // Estado de erro. Para esse caso especifico, a unica condicao de erro da matriz é caso seja digitado
         // '!' e não seguir de '='
