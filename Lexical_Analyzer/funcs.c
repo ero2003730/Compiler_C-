@@ -6,8 +6,11 @@ int position = 0;
 int max_position = 0;
 int reprocess = 0;
 char last_char;
-// Definição da tabela hash
-HashItem hashTable[TABLE_SIZE];
+FILE *file;
+struct Lexema *lexema;
+int lines = 1; // Inicializa a contagem de linhas
+int aux = 0;
+int final = 0;
 
 // Função para alocar memória para o buffer
 void allocate_buffer(struct Lexema **lexema)
@@ -358,59 +361,262 @@ char *return_Token(int token)
     }
 }
 
-unsigned int hashFunction(char *str)
+// Função que irá retornar o próximo token, um por um, que será analisado pelo analisador léxico
+token get_token()
 {
-    unsigned int hashValue = 0;
-    while (*str)
-    {
-        hashValue = (hashValue << 5) + *str++; // Função hash simples usando deslocamento
-    }
-    return hashValue % TABLE_SIZE;
-}
+    static BSTNode *root = NULL;
 
-void insertIntoHashTable(char *keyword, token tok)
-{
-    unsigned int index = hashFunction(keyword);
-    while (hashTable[index].keyword != NULL && strcmp(hashTable[index].keyword, keyword) != 0)
-    {
-        index = (index + 1) % TABLE_SIZE; // Probing linear
-    }
-    hashTable[index].keyword = keyword;
-    hashTable[index].tok = tok;
-}
+    if (root == NULL)
+        root = initBST();
 
-token searchInHashTable(char *keyword)
-{
-    unsigned int index = hashFunction(keyword);
-    while (hashTable[index].keyword != NULL)
+    // Matriz principal dos estados
+    int matriz[13][21] = {
+        // Colunas: letra numero < > = + - * / ! ; , ( ) [ ] { } espaço \n \0
+        {1, 2, 3, 3, 3, 4, 4, 4, 7, 6, 4, 4, 4, 4, 4, 4, 4, 4, 0, 0, 0},                       // estado q0 (inicial)
+        {1, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10},   // estado q1
+        {10, 2, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10},   // estado q2
+        {10, 10, 10, 10, 4, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10},   // estado q3
+        {10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10},  // estado q4
+        {10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10},  // estado q5
+        {11, 11, 11, 11, 12, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11},  // estado q6
+        {10, 10, 10, 10, 10, 10, 10, 8, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10},   // estado q7
+        {8, 8, 8, 8, 8, 8, 8, 9, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8},                       // estado q8
+        {8, 8, 8, 8, 8, 8, 8, 8, 0, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8},                       // estado q9
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},                       // estado q10 (final)
+        {11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11},  // estado q11 (erro)
+        {10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10}}; // estado de transicao para '!=' pois estava dando erro
+
+    // Variaveis auxiliares
+    char c;
+    int estado = 0, novo_estado = 0;
+    int coluna = 0;
+    int i = 0;
+
+    c = get_next_char(file);
+
+    if (c == EOF)
     {
-        if (strcmp(hashTable[index].keyword, keyword) == 0)
+        final = 1;
+        return 0;
+    }
+
+    if (c == '\n')
+    {
+        lines++;
+    }
+
+    // Loop até encontrar um lexema válido (ou um erro)
+    while (1)
+    {
+        // Pega a coluna em que o caractere se refere
+        coluna = get_position(c);
+
+        // Se coluna == -1, significa que não foi encontrado o caractere
+        // Logo não é um caractere pertencente a linguagem C-
+        if (coluna == -1)
         {
-            return hashTable[index].tok;
+            printf("Erro: caractere: '%c', na linha %d não eh válido\n", c, lines);
+            final = -1;
+            return -1;
         }
-        index = (index + 1) % TABLE_SIZE; // Probing linear
-    }
-    return T_ID; // Se a palavra-chave não for encontrada, retorne T_ID
-}
 
-void initHashTable()
-{
-    for (int i = 0; i < TABLE_SIZE; i++)
+        // Pegar o estado em que o caractere está transitando para
+        novo_estado = matriz[estado][coluna];
+
+        // Verificação de comentário, se o estado atual for = 7, e o estado que esta
+        // sendo transitado para for = 8, então entramos no loop de comentario
+        if (estado == 7 && novo_estado == 8)
+        {
+            // A primeira '/' do comentario é colocada no lexema, pois não satisfaz
+            // a condição de estado = 7 e novo_estado = 8, então para não pegá-la,
+            // iremos colocar um \0 para zerar
+            lexema[aux].lexemaBuffer[0] = '\0';
+
+            int comentarioFechado = 0;
+            c = get_next_char(file);
+
+            // While que ira pegar caractere por caractere dentro do comentario
+            while (!comentarioFechado && c != EOF)
+            {
+                if (c == '\n')
+                {
+                    lines++;
+                }
+
+                // Caso o caractere seja = '*', então pegar o proximo char
+                if (c == '*')
+                {
+                    c = get_next_char(file);
+
+                    // Caso o próxio caractere seja igual a '/', então, acabou a
+                    // condição de comentário, logo sair
+                    if (c == '/')
+                    {
+                        comentarioFechado = 1;
+                        // Pegar o caractere seguinte, pois o atual é o '/' e ele
+                        // não pode ser adicionado como lexema
+                        c = get_next_char(file);
+                        break;
+                    }
+                }
+                c = get_next_char(file);
+            }
+
+            // Se não encontrar o final do comentário, '*/' isso é um erro, logo printar erro
+            if (!comentarioFechado)
+            {
+                printf("Erro: comentario nao fechado antes do fim do arquivo na linha %d\n", lines);
+                final = -1;
+                return -1;
+            }
+        }
+
+        // Else para caso não satisfaça comentário
+        else
+        {
+            // Verificar se estou no estado inicial, final ou de erro
+            if (novo_estado == 0 || novo_estado == 10 || novo_estado == 11)
+            {
+                // Caso esteja no estado final (10), reprocessar o último caractere, para ser analisado
+                if (novo_estado == 10)
+                {
+                    reprocess = 1;
+                }
+
+                // Dar break no loop de dentro para analisar se é estado final ou erro
+                break;
+            }
+
+            // Se não for nenhum desses estados, então apenas adicionar o caractere no lexema
+            lexema[aux].lexemaBuffer[i] = c;
+            i++;
+            c = get_next_char(file);
+
+            // If para verificação de caso o caractere seguinte ser o EOF, então o que tiver no lexema
+            // precisa ainda ser salvo
+            if (c == EOF)
+            {
+
+                lexema[aux].linha = lines;
+
+                // Se veio do estado 1, então é uma palavra, verificar, com complexidade > 0(n) se é palavra
+                // reservada ou se é um identificador
+                if (estado == 1)
+                {
+                    lexema[aux].lexemaBuffer[i] = '\0';
+                    identify_keyword_or_id_using_bst(lexema[aux].lexemaBuffer, &lexema, aux, root);
+                    aux++;
+                }
+                // Se não for um identificador apenas mandar para analisar o token
+                else
+                {
+                    lexema[aux].lexemaBuffer[i] = '\0';
+                    get_lexema(lexema[aux].lexemaBuffer, &lexema, aux, i);
+                    aux++;
+                }
+                return -1;
+            }
+
+            estado = novo_estado;
+        }
+    }
+
+    // Se o próximo estado for o final, então quer dizer que chegou numa condição que o lexema precisa
+    // ser classificado
+    if (novo_estado == 10)
     {
-        hashTable[i].keyword = NULL;
-        hashTable[i].tok = T_ID;
+        lexema[aux].linha = lines;
+
+        // Se veio do estado 1, então é uma palavra, verificar, com complexidade > 0(n) se é palavra
+        // reservada ou se é um identificador
+        if (estado == 1)
+        {
+            lexema[aux].lexemaBuffer[i] = '\0';
+            identify_keyword_or_id_using_bst(lexema[aux].lexemaBuffer, &lexema, aux, root);
+            return lexema[aux].token;
+            aux++;
+        }
+        // Se não for um identificador apenas mandar para analisar o token
+        else
+        {
+            lexema[aux].lexemaBuffer[i] = '\0';
+            get_lexema(lexema[aux].lexemaBuffer, &lexema, aux, i);
+            return lexema[aux].token;
+            aux++;
+        }
     }
 
-    insertIntoHashTable("else", T_ELSE);
-    insertIntoHashTable("if", T_IF);
-    insertIntoHashTable("int", T_INT);
-    insertIntoHashTable("return", T_RETURN);
-    insertIntoHashTable("void", T_VOID);
-    insertIntoHashTable("while", T_WHILE);
+    // Estado de erro. Para esse caso especifico, a unica condicao de erro da matriz é caso seja digitado
+    // '!' e não seguir de '='
+    else if (novo_estado == 11)
+    {
+        printf("Erro na linha %d: O caractere '!' foi encontrado, mas deve ser seguido imediatamente por um '=' para formar o operador '!=' válido.\n", lines);
+        final = -1;
+        return -1;
+    }
+
+    i = 0;
+    estado = 0;
 }
 
-void identify_keyword_or_id_using_hash(char *lexemaBuffer, struct Lexema **lexema, int aux)
+// Função para inicializar a árvore
+BSTNode *initBST()
 {
-    (*lexema)[aux].token = searchInHashTable(lexemaBuffer);
+    BSTNode *root = NULL;
+
+    root = insertIntoBST(root, "else", T_ELSE);
+    root = insertIntoBST(root, "if", T_IF);
+    root = insertIntoBST(root, "int", T_INT);
+    root = insertIntoBST(root, "return", T_RETURN);
+    root = insertIntoBST(root, "void", T_VOID);
+    root = insertIntoBST(root, "while", T_WHILE);
+
+    return root;
+}
+
+// Função do novo nó
+BSTNode *newBSTNode(char *keyword, token tok)
+{
+    BSTNode *node = (BSTNode *)malloc(sizeof(BSTNode));
+    node->keyword = strdup(keyword);
+    node->tok = tok;
+    node->left = NULL;
+    node->right = NULL;
+    return node;
+}
+
+// Função para inserir novo nó
+BSTNode *insertIntoBST(BSTNode *node, char *keyword, token tok)
+{
+    if (node == NULL)
+        return newBSTNode(keyword, tok);
+
+    if (strcmp(keyword, node->keyword) < 0)
+        node->left = insertIntoBST(node->left, keyword, tok);
+
+    else if (strcmp(keyword, node->keyword) > 0)
+        node->right = insertIntoBST(node->right, keyword, tok);
+
+    return node; // Retorna o ponteiro do nó (inalterado)
+}
+
+// Função para buscar novo nó
+token searchInBST(BSTNode *node, char *keyword)
+{
+    if (node == NULL)
+        return T_ID; // Não encontrado
+
+    if (strcmp(keyword, node->keyword) == 0)
+        return node->tok;
+    if (strcmp(keyword, node->keyword) < 0)
+        return searchInBST(node->left, keyword);
+    else
+        return searchInBST(node->right, keyword);
+}
+
+// Função para printar
+void identify_keyword_or_id_using_bst(char *lexemaBuffer, struct Lexema **lexema, int aux, BSTNode *root)
+{
+    (*lexema)[aux].token = searchInBST(root, lexemaBuffer);
     printf("Linha: %d, Lexema: %s, Token: %s\n", (*lexema)[aux].linha, (*lexema)[aux].lexemaBuffer, return_Token((*lexema)[aux].token));
 }

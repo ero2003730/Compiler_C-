@@ -1,5 +1,5 @@
 /*
-Comentario
+Se for muitro grande o ID/NUM cortar e pegar o respectivo
 */
 
 int main(void) {
@@ -34,3 +34,4 @@ void myFunc(int arr[], int len) {
         }
     }
 }
+

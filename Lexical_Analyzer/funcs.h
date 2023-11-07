@@ -7,17 +7,18 @@
 #include <ctype.h>
 #include <stdbool.h>
 #define N 500
-#define TABLE_SIZE 13 // Escolhendo um número primo para a tabela hash
-#include <ctype.h>    // necessário para tolower()
 
 // Variáveis globais que ajudarão a fazer o exercício
-extern char *buffer;     // Buffer principal
-extern int position;     // Contador de posição
-extern int max_position; // Variável de auxílio
-extern int reprocess;    // Variável estática para controlar o reprocessamento
-extern int max_position; // Variável de auxílio
-
-// extern HashItem hashTable[TABLE_SIZE];
+extern char *buffer;          // Buffer principal
+extern int position;          // Contador de posição
+extern int max_position;      // Variável de auxílio
+extern int reprocess;         // Variável estática para controlar o reprocessamento
+extern int max_position;      // Variável de auxílio
+extern FILE *file;            // Arquivo que está sendo analisado
+extern struct Lexema *lexema; // Struct do lexema
+extern int lines;             // Inicializa a contagem de linhas
+extern int aux;               // Posição na struct
+extern int final;             // Variável final arquivo
 
 typedef enum
 {
@@ -54,26 +55,29 @@ struct Lexema
 {
     char *lexemaBuffer;
     int linha;
-    int token;
+    token token;
 };
 
-typedef struct HashItem
+typedef struct BSTNode
 {
     char *keyword;
     token tok;
-} HashItem;
+    struct BSTNode *left;
+    struct BSTNode *right;
+} BSTNode;
 
-int fill_buffer(FILE *file);                                                 // Função para preencher o buffer
-void deallocate_buffer(struct Lexema **lexema);                              // Função para desalocar memória
-char get_next_char(FILE *file);                                              // Função que irá retornar o caractere para printar
-void get_lexema(char *lexemaBuffer, struct Lexema **lexema, int aux, int i); // Função que irá pegar o lexema e verificar o token
-void allocate_buffer(struct Lexema **lexema);                                // Função para alocar memória
-char *return_Token(int token);                                               // Função para alocar memória para o buffer
-int get_position(char c);                                                    // Função que irá pegar qual a coluna da matriz]
-unsigned int hashFunction(char *str);                                        // Protótipo da função hash
-void insertIntoHashTable(char *keyword, token tok);                          // Protótipo para inserir na tabela hash
-token searchInHashTable(char *keyword);                                      // Protótipo para buscar na tabela hash
-void initHashTable();                                                        // Protótipo para inicializar a tabela hash
-void identify_keyword_or_id_using_hash(char *lexemaBuffer, struct Lexema **lexema, int aux);
+void allocate_buffer(struct Lexema **lexema);                                                              // Função para alocar memória
+int fill_buffer(FILE *file);                                                                               // Função para preencher o buffer
+token get_token();                                                                                         // Função para pegar o proximo token
+char get_next_char(FILE *file);                                                                            // Função para pegar o próximo caractere do buffer
+int get_position(char c);                                                                                  // Função que irá pegar qual a coluna da matriz do caractere
+void get_lexema(char *lexemaBuffer, struct Lexema **lexema, int aux, int i);                               // Função que irá pegar o lexema e verificar o token
+char *return_Token(int token);                                                                             // Função que retorna o token (no ENUM)
+void deallocate_buffer(struct Lexema **lexema);                                                            // Função para desalocar memória
+BSTNode *initBST();                                                                                        // Função para iniciar a árvore de busca binária
+token searchInBST(BSTNode *node, char *keyword);                                                           // Função que irá procurar a palavra reservada
+BSTNode *newBSTNode(char *keyword, token tok);                                                             // Função do novo nó
+BSTNode *insertIntoBST(BSTNode *node, char *keyword, token tok);                                           // Função para inserir no nó
+void identify_keyword_or_id_using_bst(char *lexemaBuffer, struct Lexema **lexema, int aux, BSTNode *root); // Função para printar
 
 #endif
