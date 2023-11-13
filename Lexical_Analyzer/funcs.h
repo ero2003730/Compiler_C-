@@ -22,6 +22,7 @@ extern int final;             // Variável final arquivo
 
 typedef enum
 {
+    T_INIC,         // INICIO
     T_INT,          // INT
     T_IF,           // IF
     T_RETURN,       // RETURN
@@ -51,6 +52,7 @@ typedef enum
     T_NET,          // NOT EQUAL
 } token;
 
+// struct do Lexema, que contem cada lexema e as linhas
 struct Lexema
 {
     char *lexemaBuffer;
@@ -73,11 +75,12 @@ char get_next_char(FILE *file);                                                 
 int get_position(char c);                                                                                  // Função que irá pegar qual a coluna da matriz do caractere
 void get_lexema(char *lexemaBuffer, struct Lexema **lexema, int aux, int i);                               // Função que irá pegar o lexema e verificar o token
 char *return_Token(int token);                                                                             // Função que retorna o token (no ENUM)
+void printAnalisadorLexico();                                                                              // Printando
 void deallocate_buffer(struct Lexema **lexema);                                                            // Função para desalocar memória
 BSTNode *initBST();                                                                                        // Função para iniciar a árvore de busca binária
 token searchInBST(BSTNode *node, char *keyword);                                                           // Função que irá procurar a palavra reservada
 BSTNode *newBSTNode(char *keyword, token tok);                                                             // Função do novo nó
 BSTNode *insertIntoBST(BSTNode *node, char *keyword, token tok);                                           // Função para inserir no nó
-void identify_keyword_or_id_using_bst(char *lexemaBuffer, struct Lexema **lexema, int aux, BSTNode *root); // Função para printar
+void identify_keyword_or_id_using_bst(char *lexemaBuffer, struct Lexema **lexema, int aux, BSTNode *root); // Função para chamar a busca
 
 #endif

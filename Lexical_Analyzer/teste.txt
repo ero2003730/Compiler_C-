@@ -7,7 +7,7 @@ int main(void) {
     a = 5;
     b = 10;
 
-    /* Comentário de bloco @ # 4 % $ */
+    /* Comentario de bloco @ # 4 % $ */
     if (a < b) {
         return a + b; 
     } else if (a == b) {

@@ -151,35 +151,35 @@ void get_lexema(char *lexemaBuffer, struct Lexema **lexema, int aux, int i)
     if (isdigit(lexemaBuffer[0]))
     {
         (*lexema)[aux].token = T_NUM;
-        printf("Linha: %d, Lexema: %s, Token: %s\n", (*lexema)[aux].linha, (*lexema)[aux].lexemaBuffer, return_Token((*lexema)[aux].token));
+        // printf("Linha: %d, Lexema: %s, Token: %s\n", (*lexema)[aux].linha, (*lexema)[aux].lexemaBuffer, return_Token((*lexema)[aux].token));
         return;
     }
 
     else if (lexemaBuffer[0] == '<' && i > 1 && lexemaBuffer[1] == '=')
     {
         (*lexema)[aux].token = T_LE;
-        printf("Linha: %d, Lexema: %s, Token: %s\n", (*lexema)[aux].linha, (*lexema)[aux].lexemaBuffer, return_Token((*lexema)[aux].token));
+        // printf("Linha: %d, Lexema: %s, Token: %s\n", (*lexema)[aux].linha, (*lexema)[aux].lexemaBuffer, return_Token((*lexema)[aux].token));
         return;
     }
 
     else if (lexemaBuffer[0] == '<')
     {
         (*lexema)[aux].token = T_LT;
-        printf("Linha: %d, Lexema: %s, Token: %s\n", (*lexema)[aux].linha, (*lexema)[aux].lexemaBuffer, return_Token((*lexema)[aux].token));
+        // printf("Linha: %d, Lexema: %s, Token: %s\n", (*lexema)[aux].linha, (*lexema)[aux].lexemaBuffer, return_Token((*lexema)[aux].token));
         return;
     }
 
     else if (lexemaBuffer[0] == '>' && i > 1 && lexemaBuffer[1] == '=')
     {
         (*lexema)[aux].token = T_GE;
-        printf("Linha: %d, Lexema: %s, Token: %s\n", (*lexema)[aux].linha, (*lexema)[aux].lexemaBuffer, return_Token((*lexema)[aux].token));
+        // printf("Linha: %d, Lexema: %s, Token: %s\n", (*lexema)[aux].linha, (*lexema)[aux].lexemaBuffer, return_Token((*lexema)[aux].token));
         return;
     }
 
     else if (lexemaBuffer[0] == '>')
     {
         (*lexema)[aux].token = T_GT;
-        printf("Linha: %d, Lexema: %s, Token: %s\n", (*lexema)[aux].linha, (*lexema)[aux].lexemaBuffer, return_Token((*lexema)[aux].token));
+        // printf("Linha: %d, Lexema: %s, Token: %s\n", (*lexema)[aux].linha, (*lexema)[aux].lexemaBuffer, return_Token((*lexema)[aux].token));
         return;
     }
 
@@ -188,13 +188,13 @@ void get_lexema(char *lexemaBuffer, struct Lexema **lexema, int aux, int i)
         if (i == 1)
         {
             (*lexema)[aux].token = T_ASSIGN;
-            printf("Linha: %d, Lexema: %s, Token: %s\n", (*lexema)[aux].linha, (*lexema)[aux].lexemaBuffer, return_Token((*lexema)[aux].token));
+            // printf("Linha: %d, Lexema: %s, Token: %s\n", (*lexema)[aux].linha, (*lexema)[aux].lexemaBuffer, return_Token((*lexema)[aux].token));
             return;
         }
         else
         {
             (*lexema)[aux].token = T_EQUALS;
-            printf("Linha: %d, Lexema: %s, Token: %s\n", (*lexema)[aux].linha, (*lexema)[aux].lexemaBuffer, return_Token((*lexema)[aux].token));
+            // printf("Linha: %d, Lexema: %s, Token: %s\n", (*lexema)[aux].linha, (*lexema)[aux].lexemaBuffer, return_Token((*lexema)[aux].token));
             return;
         }
     }
@@ -202,77 +202,77 @@ void get_lexema(char *lexemaBuffer, struct Lexema **lexema, int aux, int i)
     else if (lexemaBuffer[0] == '+')
     {
         (*lexema)[aux].token = T_PLUS;
-        printf("Linha: %d, Lexema: %s, Token: %s\n", (*lexema)[aux].linha, (*lexema)[aux].lexemaBuffer, return_Token((*lexema)[aux].token));
+        // printf("Linha: %d, Lexema: %s, Token: %s\n", (*lexema)[aux].linha, (*lexema)[aux].lexemaBuffer, return_Token((*lexema)[aux].token));
         return;
     }
 
     else if (lexemaBuffer[0] == '-')
     {
         (*lexema)[aux].token = T_MINUS;
-        printf("Linha: %d, Lexema: %s, Token: %s\n", (*lexema)[aux].linha, (*lexema)[aux].lexemaBuffer, return_Token((*lexema)[aux].token));
+        // printf("Linha: %d, Lexema: %s, Token: %s\n", (*lexema)[aux].linha, (*lexema)[aux].lexemaBuffer, return_Token((*lexema)[aux].token));
         return;
     }
 
     else if (lexemaBuffer[0] == '*')
     {
         (*lexema)[aux].token = T_MULTIPLY;
-        printf("Linha: %d, Lexema: %s, Token: %s\n", (*lexema)[aux].linha, (*lexema)[aux].lexemaBuffer, return_Token((*lexema)[aux].token));
+        // printf("Linha: %d, Lexema: %s, Token: %s\n", (*lexema)[aux].linha, (*lexema)[aux].lexemaBuffer, return_Token((*lexema)[aux].token));
         return;
     }
 
     else if (lexemaBuffer[0] == ';')
     {
         (*lexema)[aux].token = T_SEMICOLON;
-        printf("Linha: %d, Lexema: %s, Token: %s\n", (*lexema)[aux].linha, (*lexema)[aux].lexemaBuffer, return_Token((*lexema)[aux].token));
+        // printf("Linha: %d, Lexema: %s, Token: %s\n", (*lexema)[aux].linha, (*lexema)[aux].lexemaBuffer, return_Token((*lexema)[aux].token));
         return;
     }
 
     else if (lexemaBuffer[0] == ',')
     {
         (*lexema)[aux].token = T_COMMA;
-        printf("Linha: %d, Lexema: %s, Token: %s\n", (*lexema)[aux].linha, (*lexema)[aux].lexemaBuffer, return_Token((*lexema)[aux].token));
+        // printf("Linha: %d, Lexema: %s, Token: %s\n", (*lexema)[aux].linha, (*lexema)[aux].lexemaBuffer, return_Token((*lexema)[aux].token));
         return;
     }
 
     else if (lexemaBuffer[0] == '(')
     {
         (*lexema)[aux].token = T_LPAREN;
-        printf("Linha: %d, Lexema: %s, Token: %s\n", (*lexema)[aux].linha, (*lexema)[aux].lexemaBuffer, return_Token((*lexema)[aux].token));
+        // printf("Linha: %d, Lexema: %s, Token: %s\n", (*lexema)[aux].linha, (*lexema)[aux].lexemaBuffer, return_Token((*lexema)[aux].token));
         return;
     }
 
     else if (lexemaBuffer[0] == ')')
     {
         (*lexema)[aux].token = T_RPAREN;
-        printf("Linha: %d, Lexema: %s, Token: %s\n", (*lexema)[aux].linha, (*lexema)[aux].lexemaBuffer, return_Token((*lexema)[aux].token));
+        // printf("Linha: %d, Lexema: %s, Token: %s\n", (*lexema)[aux].linha, (*lexema)[aux].lexemaBuffer, return_Token((*lexema)[aux].token));
         return;
     }
 
     else if (lexemaBuffer[0] == '[')
     {
         (*lexema)[aux].token = T_OPENBRACKET;
-        printf("Linha: %d, Lexema: %s, Token: %s\n", (*lexema)[aux].linha, (*lexema)[aux].lexemaBuffer, return_Token((*lexema)[aux].token));
+        // printf("Linha: %d, Lexema: %s, Token: %s\n", (*lexema)[aux].linha, (*lexema)[aux].lexemaBuffer, return_Token((*lexema)[aux].token));
         return;
     }
 
     else if (lexemaBuffer[0] == ']')
     {
         (*lexema)[aux].token = T_CLOSEBRACKET;
-        printf("Linha: %d, Lexema: %s, Token: %s\n", (*lexema)[aux].linha, (*lexema)[aux].lexemaBuffer, return_Token((*lexema)[aux].token));
+        // printf("Linha: %d, Lexema: %s, Token: %s\n", (*lexema)[aux].linha, (*lexema)[aux].lexemaBuffer, return_Token((*lexema)[aux].token));
         return;
     }
 
     else if (lexemaBuffer[0] == '{')
     {
         (*lexema)[aux].token = T_OPENBRACE;
-        printf("Linha: %d, Lexema: %s, Token: %s\n", (*lexema)[aux].linha, (*lexema)[aux].lexemaBuffer, return_Token((*lexema)[aux].token));
+        // printf("Linha: %d, Lexema: %s, Token: %s\n", (*lexema)[aux].linha, (*lexema)[aux].lexemaBuffer, return_Token((*lexema)[aux].token));
         return;
     }
 
     else if (lexemaBuffer[0] == '}')
     {
         (*lexema)[aux].token = T_CLOSEBRACE;
-        printf("Linha: %d, Lexema: %s, Token: %s\n", (*lexema)[aux].linha, (*lexema)[aux].lexemaBuffer, return_Token((*lexema)[aux].token));
+        // printf("Linha: %d, Lexema: %s, Token: %s\n", (*lexema)[aux].linha, (*lexema)[aux].lexemaBuffer, return_Token((*lexema)[aux].token));
         return;
     }
 
@@ -281,7 +281,7 @@ void get_lexema(char *lexemaBuffer, struct Lexema **lexema, int aux, int i)
         if (i == 2 && lexemaBuffer[1] == '=')
         {
             (*lexema)[aux].token = T_NET;
-            printf("Linha: %d, Lexema: %s, Token: %s\n", (*lexema)[aux].linha, (*lexema)[aux].lexemaBuffer, return_Token((*lexema)[aux].token));
+            // printf("Linha: %d, Lexema: %s, Token: %s\n", (*lexema)[aux].linha, (*lexema)[aux].lexemaBuffer, return_Token((*lexema)[aux].token));
             return;
         }
     }
@@ -289,7 +289,7 @@ void get_lexema(char *lexemaBuffer, struct Lexema **lexema, int aux, int i)
     else if (lexemaBuffer[0] == '/')
     {
         (*lexema)[aux].token = T_DIVIDE;
-        printf("Linha: %d, Lexema: %s, Token: %s\n", (*lexema)[aux].linha, (*lexema)[aux].lexemaBuffer, return_Token((*lexema)[aux].token));
+        // printf("Linha: %d, Lexema: %s, Token: %s\n", (*lexema)[aux].linha, (*lexema)[aux].lexemaBuffer, return_Token((*lexema)[aux].token));
         return;
     }
 
@@ -305,58 +305,60 @@ char *return_Token(int token)
     switch (token)
     {
     case 0:
-        return "Int";
+        break;
     case 1:
-        return "If";
+        return "Int";
     case 2:
-        return "Return";
+        return "If";
     case 3:
-        return "Else";
+        return "Return";
     case 4:
-        return "Void";
+        return "Else";
     case 5:
-        return "While";
+        return "Void";
     case 6:
-        return "ID";
+        return "While";
     case 7:
-        return "Num";
+        return "ID";
     case 8:
-        return "Plus";
+        return "Num";
     case 9:
-        return "Minus";
+        return "Plus";
     case 10:
-        return "Multiply";
+        return "Minus";
     case 11:
-        return "Divide";
+        return "Multiply";
     case 12:
-        return "Equals";
+        return "Divide";
     case 13:
-        return "Greater";
+        return "Equals";
     case 14:
-        return "Right Parenthesis";
+        return "Greater";
     case 15:
-        return "Left Parenthesis";
+        return "Right Parenthesis";
     case 16:
-        return "Semicolon";
+        return "Left Parenthesis";
     case 17:
-        return "Assign";
+        return "Semicolon";
     case 18:
-        return "Less";
+        return "Assign";
     case 19:
-        return "Less or Equal";
+        return "Less";
     case 20:
-        return "Greater or Equal";
+        return "Less or Equal";
     case 21:
-        return "Comma";
+        return "Greater or Equal";
     case 22:
-        return "Open Bracket";
+        return "Comma";
     case 23:
-        return "Close Bracket";
+        return "Open Bracket";
     case 24:
-        return "Open Brace";
+        return "Close Bracket";
     case 25:
-        return "Close Brace";
+        return "Open Brace";
     case 26:
+        return "Close Brace";
+    case 27:
         return "Not Equal";
     }
 }
@@ -397,7 +399,7 @@ token get_token()
     if (c == EOF)
     {
         final = 1;
-        return 0;
+        return -1;
     }
 
     if (c == '\n')
@@ -456,7 +458,6 @@ token get_token()
                         // Pegar o caractere seguinte, pois o atual é o '/' e ele
                         // não pode ser adicionado como lexema
                         c = get_next_char(file);
-                        break;
                     }
                 }
                 c = get_next_char(file);
@@ -505,6 +506,7 @@ token get_token()
                 {
                     lexema[aux].lexemaBuffer[i] = '\0';
                     identify_keyword_or_id_using_bst(lexema[aux].lexemaBuffer, &lexema, aux, root);
+                    return lexema[aux].token;
                     aux++;
                 }
                 // Se não for um identificador apenas mandar para analisar o token
@@ -512,6 +514,7 @@ token get_token()
                 {
                     lexema[aux].lexemaBuffer[i] = '\0';
                     get_lexema(lexema[aux].lexemaBuffer, &lexema, aux, i);
+                    return lexema[aux].token;
                     aux++;
                 }
                 return -1;
@@ -525,6 +528,9 @@ token get_token()
     // ser classificado
     if (novo_estado == 10)
     {
+        int tok = -1;
+        char *lex;
+
         lexema[aux].linha = lines;
 
         // Se veio do estado 1, então é uma palavra, verificar, com complexidade > 0(n) se é palavra
@@ -533,7 +539,8 @@ token get_token()
         {
             lexema[aux].lexemaBuffer[i] = '\0';
             identify_keyword_or_id_using_bst(lexema[aux].lexemaBuffer, &lexema, aux, root);
-            return lexema[aux].token;
+            tok = lexema[aux].token;
+            lex = lexema[aux].lexemaBuffer;
             aux++;
         }
         // Se não for um identificador apenas mandar para analisar o token
@@ -541,9 +548,14 @@ token get_token()
         {
             lexema[aux].lexemaBuffer[i] = '\0';
             get_lexema(lexema[aux].lexemaBuffer, &lexema, aux, i);
-            return lexema[aux].token;
+            tok = lexema[aux].token;
+            lex = lexema[aux].lexemaBuffer;
             aux++;
         }
+
+        // printf("Token dentro da funcao: %d\n", tok);
+        // printf("Lexema dentro da funcao: %s\n", lex);
+        return tok;
     }
 
     // Estado de erro. Para esse caso especifico, a unica condicao de erro da matriz é caso seja digitado
@@ -554,9 +566,22 @@ token get_token()
         final = -1;
         return -1;
     }
+}
 
-    i = 0;
-    estado = 0;
+void printAnalisadorLexico()
+{
+    int toks = -1;
+    while (final != 1 && final != -1)
+    {
+        toks = get_token();
+
+        if (toks != 0 && toks != -1)
+        {
+            // mandaria o token para o analisador léxico
+            // printf("Token fora da funcao: %d\n", toks);
+            printf("Token fora da funcao: %s na linha: %d\n", return_Token(toks), lines);
+        }
+    }
 }
 
 // Função para inicializar a árvore
@@ -618,5 +643,5 @@ token searchInBST(BSTNode *node, char *keyword)
 void identify_keyword_or_id_using_bst(char *lexemaBuffer, struct Lexema **lexema, int aux, BSTNode *root)
 {
     (*lexema)[aux].token = searchInBST(root, lexemaBuffer);
-    printf("Linha: %d, Lexema: %s, Token: %s\n", (*lexema)[aux].linha, (*lexema)[aux].lexemaBuffer, return_Token((*lexema)[aux].token));
+    // printf("Linha: %d, Lexema: %s, Token: %s\n", (*lexema)[aux].linha, (*lexema)[aux].lexemaBuffer, return_Token((*lexema)[aux].token));
 }

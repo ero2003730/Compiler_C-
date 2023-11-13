@@ -2,7 +2,6 @@
 
 int main(int argc, char *argv[])
 {
-
     // Verifica se o número correto de argumentos foi fornecido
     if (argc != 2)
     {
@@ -23,10 +22,7 @@ int main(int argc, char *argv[])
     // Aloca memória para o buffer
     allocate_buffer(&lexema);
 
-    while (final != 1 && final != -1)
-    {
-        get_token();
-    }
+    printAnalisadorLexico();
 
     // Libera a memória alocada para o buffer
     deallocate_buffer(&lexema);
