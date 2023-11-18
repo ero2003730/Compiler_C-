@@ -20,12 +20,12 @@ int main(int argc, char *argv[])
     }
 
     // Aloca memória para o buffer
-    allocate_buffer(&lexema);
+    allocate_buffer();
 
-    printAnalisadorLexico();
+    analisadorSintatico();
 
     // Libera a memória alocada para o buffer
-    deallocate_buffer(&lexema);
+    deallocate_buffer();
 
     // Fecha o arquivo
     fclose(file);
