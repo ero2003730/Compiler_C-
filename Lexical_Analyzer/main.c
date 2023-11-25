@@ -22,7 +22,8 @@ int main(int argc, char *argv[])
     // Aloca memória para o buffer
     allocate_buffer();
 
-    analisadorSintatico();
+    // analisadorSintatico();
+    parse();
 
     // Libera a memória alocada para o buffer
     deallocate_buffer();

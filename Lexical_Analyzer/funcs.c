@@ -11,6 +11,8 @@ struct Lexema *lexema;
 int lines = 1; // Inicializa a contagem de linhas
 int aux = 0;
 int final = 0;
+char *ultimoLexema = NULL; // Inicialize com NULL
+int ultimaLinha = 1;
 
 // Função para alocar memória para o buffer
 void allocate_buffer()
@@ -366,6 +368,22 @@ char *return_Token(int token)
     }
 }
 
+// Função auxiliar
+void analisadorSintatico()
+{
+    int toks = -1;
+    while (final != 1 && final != -1)
+    {
+        get_token();
+
+        if (lexema[aux].token != 0)
+        {
+            printf("Lexema: %s, Token: %s, Linha: %d\n", lexema[aux].lexemaBuffer, return_Token(lexema[aux].token), lines);
+            aux++;
+        }
+    }
+}
+
 // Função que irá retornar o próximo token, um por um, que será analisado pelo analisador léxico
 void get_token()
 {
@@ -466,6 +484,7 @@ void get_token()
                         // Pegar o caractere seguinte, pois o atual é o '/' e ele
                         // não pode ser adicionado como lexema
                         c = get_next_char(file);
+                        break;
                     }
                 }
                 c = get_next_char(file);
@@ -564,19 +583,22 @@ void get_token()
     }
 }
 
-void analisadorSintatico()
+// Função que irá criar a arvore sintatica
+ASTNode *createNode(char *type, char *value, ASTNode *left, ASTNode *right)
 {
-    int toks = -1;
-    while (final != 1 && final != -1)
+    ASTNode *newNode = (ASTNode *)malloc(sizeof(ASTNode));
+    if (newNode == NULL)
     {
-        get_token();
-
-        if (lexema[aux].token != 0)
-        {
-            // printf("Lexema: %s, Token: %s, Linha: %d\n", lexema[aux].lexemaBuffer, return_Token(lexema[aux].token), lines);
-            aux++;
-        }
+        fprintf(stderr, "Erro na alocação de memória\n");
+        exit(1);
     }
+
+    newNode->type = strdup(type);
+    newNode->value = value ? strdup(value) : NULL;
+    newNode->left = left;
+    newNode->right = right;
+
+    return newNode;
 }
 
 // Função para inicializar a árvore

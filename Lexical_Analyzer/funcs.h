@@ -19,6 +19,8 @@ extern struct Lexema *lexema; // Struct do lexema
 extern int lines;             // Inicializa a contagem de linhas
 extern int aux;               // Posição na struct
 extern int final;             // Variável final arquivo
+extern char *ultimoLexema;    // Uma variável global para armazenar o último lexema processado
+extern int ultimaLinha;       // Variável que irá identificar a linha do erro
 
 typedef enum
 {
@@ -68,6 +70,14 @@ typedef struct BSTNode
     struct BSTNode *right;
 } BSTNode;
 
+typedef struct ASTNode
+{
+    char *type;            // Tipo do nó (por exemplo, "operador", "identificador")
+    char *value;           // Valor do nó (por exemplo, nome de um identificador, valor de um número)
+    struct ASTNode *left;  // Filho esquerdo
+    struct ASTNode *right; // Filho direito
+} ASTNode;
+
 void allocate_buffer();                                                            // Função para alocar memória
 int fill_buffer(FILE *file);                                                       // Função para preencher o buffer
 void get_token();                                                                  // Função para pegar o proximo token
@@ -75,7 +85,9 @@ char get_next_char(FILE *file);                                                 
 int get_position(char c);                                                          // Função que irá pegar qual a coluna da matriz do caractere
 void get_lexema(char *lexemaBuffer, int aux, int i);                               // Função que irá pegar o lexema e verificar o token
 char *return_Token(int token);                                                     // Função que retorna o token (no ENUM)
-void analisadorSintatico();                                                        // Printando
+ASTNode *createNode(char *type, char *value, ASTNode *left, ASTNode *right);       // Função que irá criar os nós da arvore sintatica
+void analisadorSintatico();                                                        // print
+int parse();                                                                       // Parser
 void deallocate_buffer();                                                          // Função para desalocar memória
 BSTNode *initBST();                                                                // Função para iniciar a árvore de busca binária
 token searchInBST(BSTNode *node, char *keyword);                                   // Função que irá procurar a palavra reservada

@@ -1,37 +1,55 @@
-/*
-Se for muitro grande o ID/NUM cortar e pegar o respectivo
-*/
+/* Um programa para ordenação por seleção de 
+   uma matriz com dez elementos. */
 
-int main(void) {
-    int a, b;
-    a = 5;
-    b = 10;
+int x[10]; 
 
-    /* Comentario de bloco @ # 4 % $ */
-    if (a < b) {
-        return a + b; 
-    } else if (a == b) {
-        return a * b;
-    } else {
-        int c = a - b;
-        if (c != 0) {
-            while (c > 0) {
-                c--;
-            }
-        } else {
-            c = a / b;
+int minloc ( int a[], int low, int high ) 
+{  
+    int i; int x; int k; 
+    k = low;
+    x = a[low];
+    i = low + 1;
+    while (i < high)
+    {
+        if (a[i] < x)
+        {
+            k = i; 
+            x = a[i];
         }
-        return c;
+        i = i + 1;
+    }
+    return k;
+}
+
+void sort( int a[], int low, int high)
+{
+    int i; int k;
+    i = low;
+    while (i < high-1)
+    {
+        int t;
+        k = minloc(a,i,high);
+        t = a[k];
+        a[k] = a[i];
+        a[i] = t;
+        i = i + 1;
     }
 }
 
-void myFunc(int arr[], int len) {
-    for (int i = 0; i < len; i++) {
-        if (arr[i] >= 0) {
-            arr[i]++;
-        } else {
-            arr[i]--;
-        }
+void main(void)
+{
+    int i;
+    i = 0;
+    while (i < 10)
+    {
+        x[i] = input();
+        i = i + 1; 
+    }
+    sort(x,0,10);
+    i = 0;
+    while (i < 10)
+    {
+        output(x[i]);
+        i = i + 1; 
     }
 }
-
