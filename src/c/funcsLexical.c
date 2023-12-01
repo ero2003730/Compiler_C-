@@ -1,4 +1,4 @@
-#include "funcs.h"
+#include "../h/funcs.h"
 
 // Variáveis globais que ajudarão a fazer o exercício
 char *buffer = NULL;
@@ -25,7 +25,7 @@ void allocate_buffer()
     }
 }
 
-// Função para desalocar memória do buffer
+// Função para desalocar memória do buffer/lexema
 void deallocate_buffer()
 {
     free(buffer); // Libera a memória alocada para a estrutura do Buffer
@@ -368,22 +368,6 @@ char *return_Token(int token)
     }
 }
 
-// Função auxiliar
-void analisadorSintatico()
-{
-    int toks = -1;
-    while (final != 1 && final != -1)
-    {
-        get_token();
-
-        if (lexema[aux].token != 0)
-        {
-            printf("Lexema: %s, Token: %s, Linha: %d\n", lexema[aux].lexemaBuffer, return_Token(lexema[aux].token), lines);
-            aux++;
-        }
-    }
-}
-
 // Função que irá retornar o próximo token, um por um, que será analisado pelo analisador léxico
 void get_token()
 {
@@ -420,6 +404,7 @@ void get_token()
     if (c == EOF)
     {
         final = 1;
+        void deallocateBST(root);
         return;
     }
 
@@ -440,6 +425,7 @@ void get_token()
         {
             printf("Erro: caractere: '%c', na linha %d não eh válido\n", c, lines);
             final = -1;
+            void deallocateBST(root);
             return;
         }
 
@@ -494,6 +480,7 @@ void get_token()
             if (!comentarioFechado)
             {
                 printf("Erro: comentario nao fechado antes do fim do arquivo na linha %d\n", lines);
+                void deallocateBST(root);
                 final = -1;
                 return;
             }
@@ -578,27 +565,10 @@ void get_token()
     else if (novo_estado == 11)
     {
         printf("Erro na linha %d: O caractere '!' foi encontrado, mas deve ser seguido imediatamente por um '=' para formar o operador '!=' válido.\n", lines);
+        void deallocateBST(root);
         final = -1;
         return;
     }
-}
-
-// Função que irá criar a arvore sintatica
-ASTNode *createNode(char *type, char *value, ASTNode *left, ASTNode *right)
-{
-    ASTNode *newNode = (ASTNode *)malloc(sizeof(ASTNode));
-    if (newNode == NULL)
-    {
-        fprintf(stderr, "Erro na alocação de memória\n");
-        exit(1);
-    }
-
-    newNode->type = strdup(type);
-    newNode->value = value ? strdup(value) : NULL;
-    newNode->left = left;
-    newNode->right = right;
-
-    return newNode;
 }
 
 // Função para inicializar a árvore
@@ -661,4 +631,20 @@ void identify_keyword_or_id_using_bst(char *lexemaBuffer, int aux, BSTNode *root
 {
     (lexema)[aux].token = searchInBST(root, lexemaBuffer);
     // printf("Linha: %d, Lexema: %s, Token: %s\n", (lexema)[aux].linha, (lexema)[aux].lexemaBuffer, return_Token((lexema)[aux].token));
+}
+
+void deallocateBST(BSTNode *node)
+{
+    if (node == NULL)
+    {
+        return; // Base da recursão: nó nulo
+    }
+
+    // Desaloca os nós filhos primeiro
+    deallocateBST(node->left);
+    deallocateBST(node->right);
+
+    // Agora desaloca o nó atual
+    free(node->keyword); // Supondo que keyword foi alocada com strdup()
+    free(node);          // Libera a memória do próprio nó
 }

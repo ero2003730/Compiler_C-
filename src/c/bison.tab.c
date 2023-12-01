@@ -67,20 +67,19 @@
 
 
 /* First part of user prologue.  */
-#line 1 "bison.y"
+#line 1 "./src/bison/bison.y"
 
     #include <stdio.h>
     #include <stddef.h>
     #include<stdlib.h>
     #include<ctype.h>
     #include "funcs.h" 
-    #define YYSTYPE struct Lexema *
 
     int yylex();
     int yyparse();
     void yyerror(char *s);
 
-#line 84 "bison.tab.c"
+#line 83 "./src/c/bison.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -145,29 +144,31 @@ enum yysymbol_kind_t
   YYSYMBOL_var_declaracao = 34,            /* var_declaracao  */
   YYSYMBOL_tipo_especificador = 35,        /* tipo_especificador  */
   YYSYMBOL_fun_declaracao = 36,            /* fun_declaracao  */
-  YYSYMBOL_params = 37,                    /* params  */
-  YYSYMBOL_param_lista = 38,               /* param_lista  */
-  YYSYMBOL_param = 39,                     /* param  */
-  YYSYMBOL_composto_decl = 40,             /* composto_decl  */
-  YYSYMBOL_local_declaracoes = 41,         /* local_declaracoes  */
-  YYSYMBOL_statement_lista = 42,           /* statement_lista  */
-  YYSYMBOL_statement = 43,                 /* statement  */
-  YYSYMBOL_expressao_decl = 44,            /* expressao_decl  */
-  YYSYMBOL_selecao_decl = 45,              /* selecao_decl  */
-  YYSYMBOL_iteracao_decl = 46,             /* iteracao_decl  */
-  YYSYMBOL_retorno_decl = 47,              /* retorno_decl  */
-  YYSYMBOL_expressao = 48,                 /* expressao  */
-  YYSYMBOL_var = 49,                       /* var  */
-  YYSYMBOL_simples_expressao = 50,         /* simples_expressao  */
-  YYSYMBOL_relacional = 51,                /* relacional  */
-  YYSYMBOL_soma_expressao = 52,            /* soma_expressao  */
-  YYSYMBOL_soma = 53,                      /* soma  */
-  YYSYMBOL_termo = 54,                     /* termo  */
-  YYSYMBOL_mult = 55,                      /* mult  */
-  YYSYMBOL_fator = 56,                     /* fator  */
-  YYSYMBOL_ativacao = 57,                  /* ativacao  */
-  YYSYMBOL_args = 58,                      /* args  */
-  YYSYMBOL_arg_lista = 59                  /* arg_lista  */
+  YYSYMBOL_fun_id = 37,                    /* fun_id  */
+  YYSYMBOL_params = 38,                    /* params  */
+  YYSYMBOL_param_lista = 39,               /* param_lista  */
+  YYSYMBOL_param = 40,                     /* param  */
+  YYSYMBOL_composto_decl = 41,             /* composto_decl  */
+  YYSYMBOL_local_declaracoes = 42,         /* local_declaracoes  */
+  YYSYMBOL_statement_lista = 43,           /* statement_lista  */
+  YYSYMBOL_statement = 44,                 /* statement  */
+  YYSYMBOL_expressao_decl = 45,            /* expressao_decl  */
+  YYSYMBOL_selecao_decl = 46,              /* selecao_decl  */
+  YYSYMBOL_fat_else = 47,                  /* fat_else  */
+  YYSYMBOL_iteracao_decl = 48,             /* iteracao_decl  */
+  YYSYMBOL_retorno_decl = 49,              /* retorno_decl  */
+  YYSYMBOL_expressao = 50,                 /* expressao  */
+  YYSYMBOL_var = 51,                       /* var  */
+  YYSYMBOL_simples_expressao = 52,         /* simples_expressao  */
+  YYSYMBOL_relacional = 53,                /* relacional  */
+  YYSYMBOL_soma_expressao = 54,            /* soma_expressao  */
+  YYSYMBOL_soma = 55,                      /* soma  */
+  YYSYMBOL_termo = 56,                     /* termo  */
+  YYSYMBOL_mult = 57,                      /* mult  */
+  YYSYMBOL_fator = 58,                     /* fator  */
+  YYSYMBOL_ativacao = 59,                  /* ativacao  */
+  YYSYMBOL_args = 60,                      /* args  */
+  YYSYMBOL_arg_lista = 61                  /* arg_lista  */
 };
 typedef enum yysymbol_kind_t yysymbol_kind_t;
 
@@ -495,16 +496,16 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  9
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   101
+#define YYLAST   99
 
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  30
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  30
+#define YYNNTS  32
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  63
+#define YYNRULES  65
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  102
+#define YYNSTATES  105
 
 /* YYMAXUTOK -- Last valid token kind.  */
 #define YYMAXUTOK   257
@@ -551,15 +552,15 @@ static const yytype_int8 yytranslate[] =
 
 #if YYDEBUG
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
-static const yytype_int8 yyrline[] =
+static const yytype_int16 yyrline[] =
 {
-       0,    44,    44,    46,    47,    49,    50,    52,    53,    55,
-      56,    58,    60,    61,    63,    64,    66,    67,    69,    71,
-      72,    74,    75,    77,    78,    79,    80,    81,    83,    84,
-      86,    87,    89,    91,    92,    94,    95,    97,    98,   100,
-     101,   103,   103,   103,   103,   103,   103,   105,   106,   108,
-     108,   110,   111,   113,   113,   115,   116,   117,   118,   120,
-     122,   123,   125,   126
+       0,    84,    84,    94,   104,   106,   107,   109,   128,   153,
+     160,   169,   187,   201,   202,   210,   220,   222,   236,   251,
+     261,   270,   272,   287,   289,   290,   291,   292,   293,   295,
+     296,   299,   314,   322,   324,   336,   341,   350,   360,   362,
+     377,   395,   404,   407,   408,   409,   410,   411,   412,   414,
+     420,   422,   426,   431,   437,   439,   446,   452,   453,   454,
+     464,   467,   473,   474,   476,   485
 };
 #endif
 
@@ -583,12 +584,12 @@ static const char *const yytname[] =
   "TOKEN_LE", "TOKEN_GE", "TOKEN_COMMA", "TOKEN_OPENBRACKET",
   "TOKEN_CLOSEBRACKET", "TOKEN_OPENBRACE", "TOKEN_CLOSEBRACE", "TOKEN_NET",
   "$accept", "programa", "declaracao_lista", "declaracao",
-  "var_declaracao", "tipo_especificador", "fun_declaracao", "params",
-  "param_lista", "param", "composto_decl", "local_declaracoes",
+  "var_declaracao", "tipo_especificador", "fun_declaracao", "fun_id",
+  "params", "param_lista", "param", "composto_decl", "local_declaracoes",
   "statement_lista", "statement", "expressao_decl", "selecao_decl",
-  "iteracao_decl", "retorno_decl", "expressao", "var", "simples_expressao",
-  "relacional", "soma_expressao", "soma", "termo", "mult", "fator",
-  "ativacao", "args", "arg_lista", YY_NULLPTR
+  "fat_else", "iteracao_decl", "retorno_decl", "expressao", "var",
+  "simples_expressao", "relacional", "soma_expressao", "soma", "termo",
+  "mult", "fator", "ativacao", "args", "arg_lista", YY_NULLPTR
 };
 
 static const char *
@@ -598,12 +599,12 @@ yysymbol_name (yysymbol_kind_t yysymbol)
 }
 #endif
 
-#define YYPACT_NINF (-75)
+#define YYPACT_NINF (-93)
 
 #define yypact_value_is_default(Yyn) \
   ((Yyn) == YYPACT_NINF)
 
-#define YYTABLE_NINF (-14)
+#define YYTABLE_NINF (-15)
 
 #define yytable_value_is_error(Yyn) \
   0
@@ -612,17 +613,17 @@ yysymbol_name (yysymbol_kind_t yysymbol)
    STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-      49,   -75,   -75,    17,    49,   -75,   -75,    20,   -75,   -75,
-     -75,    23,    59,   -75,    24,    40,    36,    48,    46,   -75,
-      45,    47,    51,    49,    54,    53,   -75,   -75,   -75,   -75,
-     -75,    49,   -75,    65,     3,   -16,    58,    -4,    62,    26,
-     -75,    -8,   -75,   -75,   -75,   -75,   -75,   -75,   -75,   -75,
-      56,    61,   -75,    38,    50,   -75,   -75,    -8,   -75,    63,
-      -8,    -8,    -8,    60,   -75,    -8,   -75,   -75,   -75,   -75,
-     -75,   -75,   -75,   -75,    -8,    -8,   -75,   -75,    -8,    66,
-     -75,    67,   -75,    68,    64,    69,   -75,   -75,   -75,    57,
-      50,   -75,    28,    28,   -75,    -8,   -75,    80,   -75,   -75,
-      28,   -75
+      23,   -93,   -93,     5,    23,   -93,   -93,     8,   -93,   -93,
+     -93,    25,    17,   -93,    39,    54,    14,    50,    57,    51,
+      45,   -93,    52,    47,    43,    23,   -93,    48,   -93,   -93,
+     -93,   -93,    23,   -93,    64,     4,    25,    58,    -3,    59,
+      18,   -93,    10,   -93,   -93,    60,   -93,   -93,   -93,   -93,
+     -93,   -93,    56,    61,   -93,    30,    49,   -93,   -93,    10,
+     -93,    63,    10,    10,    62,    10,   -93,    10,   -93,   -93,
+     -93,   -93,   -93,   -93,   -93,   -93,    10,    10,   -93,   -93,
+      10,    66,   -93,    67,    65,   -93,   -93,    68,    69,   -93,
+     -93,    53,    49,   -93,    29,    29,   -93,   -93,    10,    74,
+     -93,   -93,    29,   -93,   -93
 };
 
 /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -631,32 +632,34 @@ static const yytype_int8 yypact[] =
 static const yytype_int8 yydefact[] =
 {
        0,     9,    10,     0,     2,     4,     5,     0,     6,     1,
-       3,     0,     0,     7,     0,    10,     0,     0,    12,    15,
-       0,    16,     0,     0,     0,     0,    20,    11,    14,     8,
-      17,    22,    19,     0,     0,     0,     0,     0,     0,    37,
-      58,     0,    29,    18,    24,    21,    23,    25,    26,    27,
-       0,    56,    36,    40,    48,    52,    57,     0,    33,     0,
-       0,    61,     0,     0,    28,     0,    49,    50,    45,    43,
-      42,    41,    44,    46,     0,     0,    53,    54,     0,     0,
-      34,     0,    63,     0,    60,     0,    55,    35,    56,    39,
-      47,    51,     0,     0,    59,     0,    38,    30,    32,    62,
-       0,    31
+       3,    12,     0,     7,     0,     0,     0,    10,     0,     0,
+      13,    16,     0,    17,     0,     0,     8,     0,    21,    11,
+      15,    18,    23,    20,     0,     0,     0,     0,     0,     0,
+      39,    59,     0,    30,    19,     0,    25,    22,    24,    26,
+      27,    28,     0,    58,    38,    42,    50,    54,    60,     0,
+      35,     0,     0,     0,     0,    63,    29,     0,    51,    52,
+      47,    45,    44,    43,    46,    48,     0,     0,    55,    56,
+       0,     0,    36,     0,     0,    57,    65,     0,    62,    37,
+      58,    41,    49,    53,     0,     0,    40,    61,     0,    33,
+      34,    64,     0,    31,    32
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -75,   -75,   -75,    83,    70,     4,   -75,   -75,   -75,    71,
-      74,   -75,   -75,   -74,   -75,   -75,   -75,   -75,   -37,   -35,
-     -75,   -75,    15,   -75,    16,   -75,    12,   -75,   -75,   -75
+     -93,   -93,   -93,    82,    55,   -14,   -93,    81,   -93,   -93,
+      70,    72,   -93,   -93,   -92,   -93,   -93,   -93,   -93,   -93,
+     -38,   -22,   -93,   -93,    13,   -93,    15,   -93,    19,   -93,
+     -93,   -93
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-       0,     3,     4,     5,     6,     7,     8,    17,    18,    19,
-      44,    31,    34,    45,    46,    47,    48,    49,    50,    51,
-      52,    74,    53,    75,    54,    78,    55,    56,    83,    84
+       0,     3,     4,     5,     6,     7,     8,    45,    19,    20,
+      21,    46,    32,    35,    47,    48,    49,   103,    50,    51,
+      52,    53,    54,    76,    55,    77,    56,    80,    57,    58,
+      87,    88
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -664,32 +667,30 @@ static const yytype_int8 yydefgoto[] =
    number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
-      59,    39,    40,    13,    63,    39,    40,    36,    37,    14,
-      41,    38,    39,    40,    41,    58,    16,     9,    97,    98,
-      79,    41,    42,    81,    82,    85,   101,    16,    87,    11,
-      26,    43,    36,    37,    20,    33,    38,    39,    40,    88,
-      88,    12,    13,    88,    61,    21,    41,    42,    14,    66,
-      67,    62,     1,    68,    69,    26,     2,   -13,    99,    70,
-      71,    72,     1,    76,    77,    22,    15,    73,    66,    67,
-      23,    24,    25,    29,    35,    64,    57,    86,    26,    30,
-      60,    65,    80,    92,    93,    94,   100,    10,    95,    89,
-      91,    90,     0,     0,    28,    96,    27,     0,     0,     0,
-       0,    32
+      61,    18,    99,   100,    64,     9,    40,    41,    37,    38,
+     104,    18,    39,    40,    41,    42,    60,    11,    34,    40,
+      41,    81,    42,    43,    83,    84,     1,    86,    42,    89,
+       2,    28,    44,    37,    38,    15,   -12,    39,    40,    41,
+      22,    68,    69,    63,    13,    70,    71,    42,    43,    16,
+      14,    72,    73,    74,    90,    90,    28,     1,    90,    75,
+     101,    17,    78,    79,    68,    69,    23,   -14,    24,    25,
+      28,    26,    27,    36,    31,    66,    59,    62,    65,    85,
+     102,    67,    82,    94,    95,    97,    10,    33,    12,    91,
+       0,    96,    92,    98,     0,    30,    29,     0,     0,    93
 };
 
 static const yytype_int8 yycheck[] =
 {
-      37,     9,    10,    19,    41,     9,    10,     4,     5,    25,
-      18,     8,     9,    10,    18,    19,    12,     0,    92,    93,
-      57,    18,    19,    60,    61,    62,   100,    23,    65,     9,
-      27,    28,     4,     5,    10,    31,     8,     9,    10,    74,
-      75,    18,    19,    78,    18,     9,    18,    19,    25,    11,
-      12,    25,     3,    15,    16,    27,     7,    17,    95,    21,
-      22,    23,     3,    13,    14,    17,     7,    29,    11,    12,
-      24,    26,    25,    19,     9,    19,    18,    17,    27,    26,
-      18,    20,    19,    17,    17,    17,     6,     4,    24,    74,
-      78,    75,    -1,    -1,    23,    26,    22,    -1,    -1,    -1,
-      -1,    31
+      38,    15,    94,    95,    42,     0,     9,    10,     4,     5,
+     102,    25,     8,     9,    10,    18,    19,     9,    32,     9,
+      10,    59,    18,    19,    62,    63,     3,    65,    18,    67,
+       7,    27,    28,     4,     5,    18,    18,     8,     9,    10,
+      26,    11,    12,    25,    19,    15,    16,    18,    19,    10,
+      25,    21,    22,    23,    76,    77,    27,     3,    80,    29,
+      98,     7,    13,    14,    11,    12,     9,    17,    17,    24,
+      27,    19,    25,     9,    26,    19,    18,    18,    18,    17,
+       6,    20,    19,    17,    17,    17,     4,    32,     7,    76,
+      -1,    26,    77,    24,    -1,    25,    24,    -1,    -1,    80
 };
 
 /* YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
@@ -697,40 +698,40 @@ static const yytype_int8 yycheck[] =
 static const yytype_int8 yystos[] =
 {
        0,     3,     7,    31,    32,    33,    34,    35,    36,     0,
-      33,     9,    18,    19,    25,     7,    35,    37,    38,    39,
-      10,     9,    17,    24,    26,    25,    27,    40,    39,    19,
-      26,    41,    34,    35,    42,     9,     4,     5,     8,     9,
-      10,    18,    19,    28,    40,    43,    44,    45,    46,    47,
-      48,    49,    50,    52,    54,    56,    57,    18,    19,    48,
-      18,    18,    25,    48,    19,    20,    11,    12,    15,    16,
-      21,    22,    23,    29,    51,    53,    13,    14,    55,    48,
-      19,    48,    48,    58,    59,    48,    17,    48,    49,    52,
-      54,    56,    17,    17,    17,    24,    26,    43,    43,    48,
-       6,    43
+      33,     9,    37,    19,    25,    18,    10,     7,    35,    38,
+      39,    40,    26,     9,    17,    24,    19,    25,    27,    41,
+      40,    26,    42,    34,    35,    43,     9,     4,     5,     8,
+       9,    10,    18,    19,    28,    37,    41,    44,    45,    46,
+      48,    49,    50,    51,    52,    54,    56,    58,    59,    18,
+      19,    50,    18,    25,    50,    18,    19,    20,    11,    12,
+      15,    16,    21,    22,    23,    29,    53,    55,    13,    14,
+      57,    50,    19,    50,    50,    17,    50,    60,    61,    50,
+      51,    54,    56,    58,    17,    17,    26,    17,    24,    44,
+      44,    50,     6,    47,    44
 };
 
 /* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr1[] =
 {
        0,    30,    31,    32,    32,    33,    33,    34,    34,    35,
-      35,    36,    37,    37,    38,    38,    39,    39,    40,    41,
-      41,    42,    42,    43,    43,    43,    43,    43,    44,    44,
-      45,    45,    46,    47,    47,    48,    48,    49,    49,    50,
-      50,    51,    51,    51,    51,    51,    51,    52,    52,    53,
-      53,    54,    54,    55,    55,    56,    56,    56,    56,    57,
-      58,    58,    59,    59
+      35,    36,    37,    38,    38,    39,    39,    40,    40,    41,
+      42,    42,    43,    43,    44,    44,    44,    44,    44,    45,
+      45,    46,    47,    47,    48,    49,    49,    50,    50,    51,
+      51,    52,    52,    53,    53,    53,    53,    53,    53,    54,
+      54,    55,    55,    56,    56,    57,    57,    58,    58,    58,
+      58,    59,    60,    60,    61,    61
 };
 
 /* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr2[] =
 {
        0,     2,     1,     2,     1,     1,     1,     3,     6,     1,
-       1,     6,     1,     1,     3,     1,     2,     4,     4,     2,
-       0,     2,     0,     1,     1,     1,     1,     1,     2,     1,
-       5,     7,     5,     2,     3,     3,     1,     1,     4,     3,
-       1,     1,     1,     1,     1,     1,     1,     3,     1,     1,
-       1,     3,     1,     1,     1,     3,     1,     1,     1,     4,
-       1,     0,     3,     1
+       1,     6,     1,     1,     1,     3,     1,     2,     4,     4,
+       2,     0,     2,     0,     1,     1,     1,     1,     1,     2,
+       1,     6,     2,     0,     5,     2,     3,     3,     1,     1,
+       4,     3,     1,     1,     1,     1,     1,     1,     1,     3,
+       1,     1,     1,     3,     1,     1,     1,     3,     1,     1,
+       1,     4,     1,     0,     3,     1
 };
 
 
@@ -1193,8 +1194,666 @@ yyreduce:
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
+  case 2: /* programa: declaracao_lista  */
+#line 85 "./src/bison/bison.y"
+            { 
+                raizDaArvore = (yyvsp[0].astNode); 
+                printf("\n");
+               printf("\n\n----------------------------Analisador Sintática----------------------------\n\n");
+                printf("\n");
 
-#line 1198 "bison.tab.c"
+                print_ast(raizDaArvore, 1);
+            }
+#line 1208 "./src/c/bison.tab.c"
+    break;
+
+  case 3: /* declaracao_lista: declaracao_lista declaracao  */
+#line 95 "./src/bison/bison.y"
+            {
+                if ((yyvsp[-1].astNode) != NULL)
+                {
+                    (yyval.astNode) = (yyvsp[-1].astNode);
+                    addSibling((yyval.astNode), (yyvsp[0].astNode));
+                    
+                }
+                else (yyval.astNode) = (yyvsp[0].astNode);
+            }
+#line 1222 "./src/c/bison.tab.c"
+    break;
+
+  case 4: /* declaracao_lista: declaracao  */
+#line 104 "./src/bison/bison.y"
+                         { (yyval.astNode) = (yyvsp[0].astNode); }
+#line 1228 "./src/c/bison.tab.c"
+    break;
+
+  case 5: /* declaracao: var_declaracao  */
+#line 106 "./src/bison/bison.y"
+                                    { (yyval.astNode) = (yyvsp[0].astNode); }
+#line 1234 "./src/c/bison.tab.c"
+    break;
+
+  case 6: /* declaracao: fun_declaracao  */
+#line 107 "./src/bison/bison.y"
+                                 { (yyval.astNode) = (yyvsp[0].astNode); }
+#line 1240 "./src/c/bison.tab.c"
+    break;
+
+  case 7: /* var_declaracao: tipo_especificador TOKEN_ID TOKEN_SEMICOLON  */
+#line 110 "./src/bison/bison.y"
+            {
+                //printf("DECLARACAO RECONHECIDA\n");
+
+                (yyval.astNode) = (yyvsp[-2].astNode); // Reutiliza o nó do tipo especificador
+                (yyval.astNode)->type = R_var_declaracao; // Define o tipo do nó
+                
+                ASTNode *aux = createNode(R_default, idLexema); 
+
+                aux->lexema = popLexema(listLexema);
+
+                //printf("Lexema aux é: %s\n", aux->lexema->lexemaBuffer);
+
+                addSon((yyval.astNode), aux);
+
+                //printf("Lexema é: %s\n", $$->lexema->lexemaBuffer);
+
+                //printf("DECLARACAO RECONHECIDA ACABOU\n");
+            }
+#line 1263 "./src/c/bison.tab.c"
+    break;
+
+  case 8: /* var_declaracao: tipo_especificador TOKEN_ID TOKEN_OPENBRACKET TOKEN_NUM TOKEN_CLOSEBRACKET TOKEN_SEMICOLON  */
+#line 129 "./src/bison/bison.y"
+            {
+                //printf("DECLARACAO VAR RECONHECIDA\n");
+                (yyval.astNode) = (yyvsp[-5].astNode); // Reutiliza o nó do tipo_especificador
+                (yyval.astNode)->type = R_var_declaracao; // Define o tipo do nó
+                // Supondo que o número da linha já esteja definido em tipo_especificador
+
+                ASTNode *aux1 = createNode(R_default, idLexema); // Cria um nó auxiliar para o identificador
+                aux1->lexema = popLexema(listLexema);
+                
+                //printf("Pai: %s\n", $$->lexema->lexemaBuffer);
+                //printf("Filho aux 1 é: %s\n", aux1->lexema->lexemaBuffer);
+
+                ASTNode *aux2 = createNode(R_default, numLexema); // Cria um nó auxiliar para o número (tamanho do array)
+                aux2->lexema = popLexema(listLexema);
+
+                //printf("Pai: %s\n", $$->lexema->lexemaBuffer);
+                //printf("Filho aux 2 é: %s\n", aux2->lexema->lexemaBuffer);
+
+                addSon((yyval.astNode), aux2); // Adiciona o segundo nó auxiliar como filho
+                addSon((yyval.astNode), aux1); // Adiciona o primeir nó auxiliar como filho
+
+                //printf("DECLARACAO VAR RECONHECIDA ACABOU\n");
+            }
+#line 1291 "./src/c/bison.tab.c"
+    break;
+
+  case 9: /* tipo_especificador: TOKEN_INT  */
+#line 154 "./src/bison/bison.y"
+            {
+                //printf("TIPO ESPECIFICADOR RECONHECIDO\n");
+                (yyval.astNode) = createNode(R_tipo_especificador, intLexema); // Usando intLexema
+                //printf("Int: %s\n", $$->lexema->lexemaBuffer);
+                //printf("TIPO ESPECIFICADOR RECONHECIDO ACABOU\n");
+            }
+#line 1302 "./src/c/bison.tab.c"
+    break;
+
+  case 10: /* tipo_especificador: TOKEN_VOID  */
+#line 161 "./src/bison/bison.y"
+            {
+                //printf("TIPO ESPECIFICADOR RECONHECIDO VOID\n");
+                (yyval.astNode) = createNode(R_tipo_especificador, voidLexema); // Usando voidLexema
+                //printf("Void: %s\n", $$->lexema->lexemaBuffer);
+                //printf("TIPO ESPECIFICADOR RECONHECIDO ACABOU\n");
+                //strcpy($$->lexema->lexemaBuffer, "VOID");
+            }
+#line 1314 "./src/c/bison.tab.c"
+    break;
+
+  case 11: /* fun_declaracao: tipo_especificador fun_id TOKEN_LPAREN params TOKEN_RPAREN composto_decl  */
+#line 170 "./src/bison/bison.y"
+            {
+                //printf("DECLARACAO FUN RECONHECIDA\n");
+                (yyval.astNode) = (yyvsp[-5].astNode);
+                (yyval.astNode)->type = R_fun_declaracao;
+
+                //printf("Pai: %s\n", $$->lexema->lexemaBuffer);
+                
+                addSon((yyval.astNode), (yyvsp[-2].astNode)); 
+                //printf("Filho 1 é: %s\n", $4->lexema->lexemaBuffer);
+                addSon((yyval.astNode), (yyvsp[-4].astNode)); 
+                //printf("Filho 2 é: %s\n", $2->lexema->lexemaBuffer);
+                (yyvsp[-4].astNode) = addSon((yyvsp[-4].astNode), (yyvsp[0].astNode)); 
+                //printf("Filho 3 é: %s\n", $6->lexema->lexemaBuffer);
+
+                //printf("DECLARACAO FUN RECONHECIDA ACABOU\n");    
+            }
+#line 1335 "./src/c/bison.tab.c"
+    break;
+
+  case 12: /* fun_id: TOKEN_ID  */
+#line 188 "./src/bison/bison.y"
+            {
+                //printf("ID FUN RECONHECIDO\n");
+                (yyval.astNode) = createNode(R_default, idLexema);
+                //printf("Pai antes: %s\n", $$->lexema->lexemaBuffer);
+                ASTNode *aux = createNode(R_default, NULL); // Cria um nó auxiliar para o identificador
+                aux->lexema = popLexema(listLexema);
+
+                (yyval.astNode)->lexema = aux->lexema;
+
+                //printf("Pai depois: %s\n", $$->lexema->lexemaBuffer);
+                //printf("ID FUN RECONHECIDO ACABOU\n");
+            }
+#line 1352 "./src/c/bison.tab.c"
+    break;
+
+  case 13: /* params: param_lista  */
+#line 201 "./src/bison/bison.y"
+                             { (yyval.astNode) = (yyvsp[0].astNode); }
+#line 1358 "./src/c/bison.tab.c"
+    break;
+
+  case 14: /* params: TOKEN_VOID  */
+#line 203 "./src/bison/bison.y"
+            {
+                //printf("PARAMS RECONHECIDO\n");
+                (yyval.astNode) = createNode(R_params, voidLexema); // Usando voidLexema
+                //printf("Pai: %s\n", $$->lexema->lexemaBuffer);
+                //printf("PARAMS RECONHECIDO\n");
+            }
+#line 1369 "./src/c/bison.tab.c"
+    break;
+
+  case 15: /* param_lista: param_lista TOKEN_COMMA param  */
+#line 211 "./src/bison/bison.y"
+            {
+                if ((yyvsp[-2].astNode) != NULL)
+                {
+                    (yyval.astNode) = (yyvsp[-2].astNode);
+                    addSibling((yyval.astNode), (yyvsp[0].astNode)); 
+                    
+                }
+                else (yyval.astNode) = (yyvsp[0].astNode);
+                }
+#line 1383 "./src/c/bison.tab.c"
+    break;
+
+  case 16: /* param_lista: param  */
+#line 220 "./src/bison/bison.y"
+                     {(yyval.astNode) = (yyvsp[0].astNode);}
+#line 1389 "./src/c/bison.tab.c"
+    break;
+
+  case 17: /* param: tipo_especificador TOKEN_ID  */
+#line 223 "./src/bison/bison.y"
+            {
+                //printf("PARAM RECONHECIDO\n");
+                (yyval.astNode) = (yyvsp[-1].astNode);
+                ASTNode *aux = createNode(R_default, idLexema);
+
+                aux->lexema = popLexema(listLexema);
+                 
+                //printf("Pai: %s\n", $$->lexema->lexemaBuffer);
+                //printf("Filho aux 1 é: %s\n", aux->lexema->lexemaBuffer);
+
+                addSon((yyval.astNode), aux);
+                //printf("PARAM RECONHECIDO ACABOOU\n");
+            }
+#line 1407 "./src/c/bison.tab.c"
+    break;
+
+  case 18: /* param: tipo_especificador TOKEN_ID TOKEN_OPENBRACKET TOKEN_CLOSEBRACKET  */
+#line 237 "./src/bison/bison.y"
+            {
+                //printf("PARAM RECONHECIDO\n");
+                (yyval.astNode) = (yyvsp[-3].astNode);
+                ASTNode *aux = createNode(R_default, idLexema);
+
+                aux->lexema = popLexema(listLexema);
+
+                //printf("Pai: %s\n", $$->lexema->lexemaBuffer);
+                //printf("Filho aux 1 é: %s\n", aux->lexema->lexemaBuffer);
+
+                addSon((yyval.astNode), aux);
+                //printf("PARAM RECONHECIDO ACABOU\n");  
+            }
+#line 1425 "./src/c/bison.tab.c"
+    break;
+
+  case 19: /* composto_decl: TOKEN_OPENBRACE local_declaracoes statement_lista TOKEN_CLOSEBRACE  */
+#line 252 "./src/bison/bison.y"
+            {
+                if ((yyvsp[-2].astNode) != NULL)
+                {
+                    (yyval.astNode) = (yyvsp[-2].astNode);
+                    addSibling((yyval.astNode), (yyvsp[-1].astNode));
+                }
+                else if ((yyvsp[-2].astNode) == NULL) (yyval.astNode) = (yyvsp[-1].astNode);
+            }
+#line 1438 "./src/c/bison.tab.c"
+    break;
+
+  case 20: /* local_declaracoes: local_declaracoes var_declaracao  */
+#line 262 "./src/bison/bison.y"
+            {
+                if ((yyvsp[-1].astNode) != NULL)
+                {
+                    (yyval.astNode) = (yyvsp[-1].astNode);
+                    addSibling((yyval.astNode), (yyvsp[0].astNode));
+                }
+                else (yyval.astNode) = (yyvsp[0].astNode);
+            }
+#line 1451 "./src/c/bison.tab.c"
+    break;
+
+  case 21: /* local_declaracoes: %empty  */
+#line 270 "./src/bison/bison.y"
+                          { (yyval.astNode) = NULL; }
+#line 1457 "./src/c/bison.tab.c"
+    break;
+
+  case 22: /* statement_lista: statement_lista statement  */
+#line 273 "./src/bison/bison.y"
+            {
+                if ((yyvsp[-1].astNode) != NULL)
+                {
+                    (yyval.astNode) = (yyvsp[-1].astNode);
+                    //printf("Entrei aqui\n");
+                    addSibling((yyval.astNode), (yyvsp[0].astNode));
+                }
+                else 
+                {
+                    (yyval.astNode) = (yyvsp[0].astNode);
+                    //printf("Entrei aqui 2\n");
+                }
+            }
+#line 1475 "./src/c/bison.tab.c"
+    break;
+
+  case 23: /* statement_lista: %empty  */
+#line 287 "./src/bison/bison.y"
+            { (yyval.astNode) = NULL; }
+#line 1481 "./src/c/bison.tab.c"
+    break;
+
+  case 24: /* statement: expressao_decl  */
+#line 289 "./src/bison/bison.y"
+                                   { (yyval.astNode) = (yyvsp[0].astNode); }
+#line 1487 "./src/c/bison.tab.c"
+    break;
+
+  case 25: /* statement: composto_decl  */
+#line 290 "./src/bison/bison.y"
+                                { (yyval.astNode) = (yyvsp[0].astNode); }
+#line 1493 "./src/c/bison.tab.c"
+    break;
+
+  case 26: /* statement: selecao_decl  */
+#line 291 "./src/bison/bison.y"
+                               { (yyval.astNode) = (yyvsp[0].astNode); }
+#line 1499 "./src/c/bison.tab.c"
+    break;
+
+  case 27: /* statement: iteracao_decl  */
+#line 292 "./src/bison/bison.y"
+                                { (yyval.astNode) = (yyvsp[0].astNode); }
+#line 1505 "./src/c/bison.tab.c"
+    break;
+
+  case 28: /* statement: retorno_decl  */
+#line 293 "./src/bison/bison.y"
+                               { (yyval.astNode) = (yyvsp[0].astNode); }
+#line 1511 "./src/c/bison.tab.c"
+    break;
+
+  case 29: /* expressao_decl: expressao TOKEN_SEMICOLON  */
+#line 295 "./src/bison/bison.y"
+                                                   { (yyval.astNode) = (yyvsp[-1].astNode); }
+#line 1517 "./src/c/bison.tab.c"
+    break;
+
+  case 30: /* expressao_decl: TOKEN_SEMICOLON  */
+#line 296 "./src/bison/bison.y"
+                                  { (yyval.astNode) = NULL; }
+#line 1523 "./src/c/bison.tab.c"
+    break;
+
+  case 31: /* selecao_decl: TOKEN_IF TOKEN_LPAREN expressao TOKEN_RPAREN statement fat_else  */
+#line 300 "./src/bison/bison.y"
+        {
+            (yyval.astNode) = createNode(R_selecao_decl, ifLexema); // Usando ifLexema
+            //printf("Pai: %s\n", $$->lexema->lexemaBuffer);
+            addSon((yyval.astNode), (yyvsp[-3].astNode));
+            //printf("Filho 1: %s\n", $3->lexema->lexemaBuffer);
+            addSon((yyval.astNode), (yyvsp[-1].astNode));
+            //printf("Filho 2: %s\n", $5->lexema->lexemaBuffer);
+            if ((yyvsp[0].astNode)) 
+            {
+                addSon((yyval.astNode), (yyvsp[0].astNode));
+                //printf("Filho 3: %s\n", $6->lexema->lexemaBuffer);
+            }
+        }
+#line 1541 "./src/c/bison.tab.c"
+    break;
+
+  case 32: /* fat_else: TOKEN_ELSE statement  */
+#line 315 "./src/bison/bison.y"
+        {
+            (yyval.astNode) = createNode(R_selecao_decl, elseLexema);  
+
+            //printf("Pai: %s\n", $$->lexema->lexemaBuffer); 
+            //printf("Filho: %s\n", $2->lexema->lexemaBuffer);  
+
+            addSon((yyval.astNode),(yyvsp[0].astNode));  
+        }
+#line 1554 "./src/c/bison.tab.c"
+    break;
+
+  case 33: /* fat_else: %empty  */
+#line 322 "./src/bison/bison.y"
+                        { (yyval.astNode) = NULL; }
+#line 1560 "./src/c/bison.tab.c"
+    break;
+
+  case 34: /* iteracao_decl: TOKEN_WHILE TOKEN_LPAREN expressao TOKEN_RPAREN statement  */
+#line 325 "./src/bison/bison.y"
+            {
+                (yyval.astNode) = createNode(R_iteracao_decl, whileLexema); // Usando whileLexema
+                
+                //printf("Pai: %s\n", $$->lexema->lexemaBuffer);
+                //printf("Filho 1: %s\n", $3->lexema->lexemaBuffer);  
+                //printf("Filho 2: %s\n", $5->lexema->lexemaBuffer);  
+
+                addSon((yyval.astNode), (yyvsp[-2].astNode));
+                addSon((yyval.astNode), (yyvsp[0].astNode));
+            }
+#line 1575 "./src/c/bison.tab.c"
+    break;
+
+  case 35: /* retorno_decl: TOKEN_RETURN TOKEN_SEMICOLON  */
+#line 337 "./src/bison/bison.y"
+            {
+                (yyval.astNode) = createNode(R_retorno_decl, returnLexema); // Usando returnLexema
+                //printf("Pai: %s\n", returnLexema->lexemaBuffer);
+            }
+#line 1584 "./src/c/bison.tab.c"
+    break;
+
+  case 36: /* retorno_decl: TOKEN_RETURN expressao TOKEN_SEMICOLON  */
+#line 342 "./src/bison/bison.y"
+            {
+                (yyval.astNode) = createNode(R_retorno_decl, returnLexema); // Usando returnLexema
+                //printf("Pai: %s\n", $$->lexema->lexemaBuffer);
+                //printf("Filho: %s\n", $2->lexema->lexemaBuffer);
+
+                addSon((yyval.astNode), (yyvsp[-1].astNode));
+            }
+#line 1596 "./src/c/bison.tab.c"
+    break;
+
+  case 37: /* expressao: var TOKEN_ASSIGN expressao  */
+#line 351 "./src/bison/bison.y"
+            {
+                (yyval.astNode) = createNode(R_expressao, assignLexema); // Usando assignLexema
+                //printf("Pai: %s\n", $$->lexema->lexemaBuffer);
+                //printf("Filho 1: %s\n", $1->lexema->lexemaBuffer);
+                //printf("Filho 2: %s\n", $3->lexema->lexemaBuffer);
+
+                addSon((yyval.astNode), (yyvsp[-2].astNode));
+                addSon((yyval.astNode), (yyvsp[0].astNode));
+            }
+#line 1610 "./src/c/bison.tab.c"
+    break;
+
+  case 38: /* expressao: simples_expressao  */
+#line 360 "./src/bison/bison.y"
+                                { (yyval.astNode) = (yyvsp[0].astNode); }
+#line 1616 "./src/c/bison.tab.c"
+    break;
+
+  case 39: /* var: TOKEN_ID  */
+#line 363 "./src/bison/bison.y"
+            {
+                
+                (yyval.astNode) = createNode(R_var, idLexema); // Usando idLexema
+
+                ASTNode *aux = createNode(R_default, NULL);
+
+                aux->lexema = popLexema(listLexema);
+
+                //printf("$$ antes: %s\n", $$->lexema->lexemaBuffer);
+
+                (yyval.astNode)->lexema = aux->lexema;
+
+                //printf("$$ depois: %s\n", $$->lexema->lexemaBuffer); 
+            }
+#line 1635 "./src/c/bison.tab.c"
+    break;
+
+  case 40: /* var: TOKEN_ID TOKEN_OPENBRACKET expressao TOKEN_CLOSEBRACKET  */
+#line 378 "./src/bison/bison.y"
+            {
+                (yyval.astNode) = createNode(R_var, idLexema); // Usando idLexema
+
+                ASTNode *aux = createNode(R_default, NULL);
+
+                aux->lexema = popLexema(listLexema);
+
+                //printf("$$ antes: %s\n", $$->lexema->lexemaBuffer);
+
+                (yyval.astNode)->lexema = aux->lexema;
+
+                //printf("$$ depos: %s\n", $$->lexema->lexemaBuffer);
+                //printf("Filho: %s\n", $3->lexema->lexemaBuffer);
+
+                addSon((yyval.astNode), (yyvsp[-1].astNode));    
+            }
+#line 1656 "./src/c/bison.tab.c"
+    break;
+
+  case 41: /* simples_expressao: soma_expressao relacional soma_expressao  */
+#line 396 "./src/bison/bison.y"
+            {
+                (yyval.astNode) = (yyvsp[-1].astNode); 
+                //printf("Pai: %s\n", $$->lexema->lexemaBuffer);
+                //printf("Filho 1: %s\n", $1->lexema->lexemaBuffer);
+                addSon((yyval.astNode), (yyvsp[-2].astNode));
+                //printf("Filho 3: %s\n", $3->lexema->lexemaBuffer);
+                addSon((yyval.astNode), (yyvsp[0].astNode));
+            }
+#line 1669 "./src/c/bison.tab.c"
+    break;
+
+  case 42: /* simples_expressao: soma_expressao  */
+#line 404 "./src/bison/bison.y"
+                             { (yyval.astNode) = (yyvsp[0].astNode); }
+#line 1675 "./src/c/bison.tab.c"
+    break;
+
+  case 43: /* relacional: TOKEN_LE  */
+#line 407 "./src/bison/bison.y"
+                     { (yyval.astNode) = createNode(R_relacional, leLexema); }
+#line 1681 "./src/c/bison.tab.c"
+    break;
+
+  case 44: /* relacional: TOKEN_LT  */
+#line 408 "./src/bison/bison.y"
+                       { (yyval.astNode) = createNode(R_relacional, ltLexema); }
+#line 1687 "./src/c/bison.tab.c"
+    break;
+
+  case 45: /* relacional: TOKEN_GT  */
+#line 409 "./src/bison/bison.y"
+                       { (yyval.astNode) = createNode(R_relacional, gtLexema); }
+#line 1693 "./src/c/bison.tab.c"
+    break;
+
+  case 46: /* relacional: TOKEN_GE  */
+#line 410 "./src/bison/bison.y"
+                        { (yyval.astNode) = createNode(R_relacional, geLexema); }
+#line 1699 "./src/c/bison.tab.c"
+    break;
+
+  case 47: /* relacional: TOKEN_EQUALS  */
+#line 411 "./src/bison/bison.y"
+                           { (yyval.astNode) = createNode(R_relacional, equalsLexema); }
+#line 1705 "./src/c/bison.tab.c"
+    break;
+
+  case 48: /* relacional: TOKEN_NET  */
+#line 412 "./src/bison/bison.y"
+                        { (yyval.astNode) = createNode(R_relacional, netLexema); }
+#line 1711 "./src/c/bison.tab.c"
+    break;
+
+  case 49: /* soma_expressao: soma_expressao soma termo  */
+#line 415 "./src/bison/bison.y"
+            {
+                (yyval.astNode) = (yyvsp[-1].astNode);
+                addSon((yyval.astNode), (yyvsp[-2].astNode));
+                addSon((yyval.astNode), (yyvsp[0].astNode)); 
+            }
+#line 1721 "./src/c/bison.tab.c"
+    break;
+
+  case 50: /* soma_expressao: termo  */
+#line 420 "./src/bison/bison.y"
+                    { (yyval.astNode) = (yyvsp[0].astNode); }
+#line 1727 "./src/c/bison.tab.c"
+    break;
+
+  case 51: /* soma: TOKEN_PLUS  */
+#line 423 "./src/bison/bison.y"
+            { 
+                (yyval.astNode) = createNode(R_soma, plusLexema); 
+            }
+#line 1735 "./src/c/bison.tab.c"
+    break;
+
+  case 52: /* soma: TOKEN_MINUS  */
+#line 427 "./src/bison/bison.y"
+            { 
+                (yyval.astNode) = createNode(R_soma, minusLexema); 
+            }
+#line 1743 "./src/c/bison.tab.c"
+    break;
+
+  case 53: /* termo: termo mult fator  */
+#line 432 "./src/bison/bison.y"
+            {
+                (yyval.astNode) = (yyvsp[-1].astNode);
+                addSon((yyval.astNode), (yyvsp[-2].astNode));
+                addSon((yyval.astNode), (yyvsp[0].astNode));    
+            }
+#line 1753 "./src/c/bison.tab.c"
+    break;
+
+  case 54: /* termo: fator  */
+#line 437 "./src/bison/bison.y"
+                    { (yyval.astNode) = (yyvsp[0].astNode); }
+#line 1759 "./src/c/bison.tab.c"
+    break;
+
+  case 55: /* mult: TOKEN_MULTIPLY  */
+#line 440 "./src/bison/bison.y"
+            {
+                (yyval.astNode) = createNode(R_mult, multiplyLexema);
+
+                
+                
+            }
+#line 1770 "./src/c/bison.tab.c"
+    break;
+
+  case 56: /* mult: TOKEN_DIVIDE  */
+#line 447 "./src/bison/bison.y"
+            {
+                (yyval.astNode) = createNode(R_mult, divideLexema); 
+                
+            }
+#line 1779 "./src/c/bison.tab.c"
+    break;
+
+  case 57: /* fator: TOKEN_LPAREN expressao TOKEN_RPAREN  */
+#line 452 "./src/bison/bison.y"
+                                                    { (yyval.astNode) = (yyvsp[-1].astNode); }
+#line 1785 "./src/c/bison.tab.c"
+    break;
+
+  case 58: /* fator: var  */
+#line 453 "./src/bison/bison.y"
+                  { (yyval.astNode) = (yyvsp[0].astNode); }
+#line 1791 "./src/c/bison.tab.c"
+    break;
+
+  case 59: /* fator: TOKEN_NUM  */
+#line 455 "./src/bison/bison.y"
+            {
+                (yyval.astNode) = createNode(R_fator, numLexema);
+
+                ASTNode *aux = createNode(R_default, NULL);
+
+                aux->lexema = popLexema(listLexema);
+
+                (yyval.astNode)->lexema = aux->lexema;
+            }
+#line 1805 "./src/c/bison.tab.c"
+    break;
+
+  case 60: /* fator: ativacao  */
+#line 464 "./src/bison/bison.y"
+                       { (yyval.astNode) = (yyvsp[0].astNode); }
+#line 1811 "./src/c/bison.tab.c"
+    break;
+
+  case 61: /* ativacao: fun_id TOKEN_LPAREN args TOKEN_RPAREN  */
+#line 468 "./src/bison/bison.y"
+            {
+                (yyval.astNode) = (yyvsp[-3].astNode);
+                addSon((yyval.astNode), (yyvsp[-1].astNode));           
+            }
+#line 1820 "./src/c/bison.tab.c"
+    break;
+
+  case 62: /* args: arg_lista  */
+#line 473 "./src/bison/bison.y"
+                         { (yyval.astNode) = (yyvsp[0].astNode); }
+#line 1826 "./src/c/bison.tab.c"
+    break;
+
+  case 63: /* args: %empty  */
+#line 474 "./src/bison/bison.y"
+                          { (yyval.astNode) = NULL; }
+#line 1832 "./src/c/bison.tab.c"
+    break;
+
+  case 64: /* arg_lista: arg_lista TOKEN_COMMA expressao  */
+#line 477 "./src/bison/bison.y"
+            {
+                if ((yyvsp[-2].astNode) != NULL)
+                {
+                    (yyval.astNode) = (yyvsp[-2].astNode);
+                    addSibling((yyval.astNode), (yyvsp[0].astNode));
+                }
+                else (yyval.astNode) = (yyvsp[0].astNode);
+            }
+#line 1845 "./src/c/bison.tab.c"
+    break;
+
+  case 65: /* arg_lista: expressao  */
+#line 486 "./src/bison/bison.y"
+            {
+                (yyval.astNode) = (yyvsp[0].astNode);
+            }
+#line 1853 "./src/c/bison.tab.c"
+    break;
+
+
+#line 1857 "./src/c/bison.tab.c"
 
       default: break;
     }
@@ -1387,7 +2046,8 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 129 "bison.y"
+#line 491 "./src/bison/bison.y"
+
 
 
 
@@ -1416,23 +2076,58 @@ int yylex()
     // Checa se há um token válido
     if (lexema[aux].token != 0) 
     {
-        printf("ANALISADOR LÉXICO: Lexema: %s, Token: %s, Linha: %d\n", 
+        
+        printf("Lexema: %s, Token: %s, Token num: %d, Linha: %d\n", 
                lexema[aux].lexemaBuffer, 
-               return_Token(lexema[aux].token), 
+               return_Token(lexema[aux].token),
+               lexema[aux].token, 
                lexema[aux].linha);
+        
 
+        if (lexema[aux].token == 7) 
+        {
+            idLexema = &lexema[aux];
+            pushLexema(listLexema, idLexema);
+        }
+        else if (lexema[aux].token == 8) 
+        {
+            numLexema = &lexema[aux];
+            pushLexema(listLexema, numLexema);
+        }
+        else if (lexema[aux].token == 1) intLexema = &lexema[aux];
+        else if (lexema[aux].token == 2) ifLexema = &lexema[aux];
+        else if (lexema[aux].token == 3) returnLexema = &lexema[aux];
+        else if (lexema[aux].token == 4) elseLexema = &lexema[aux];
+        else if (lexema[aux].token == 5) voidLexema = &lexema[aux];
+        else if (lexema[aux].token == 6) whileLexema = &lexema[aux];
+        else if (lexema[aux].token == 9) plusLexema = &lexema[aux];
+        else if (lexema[aux].token == 10) minusLexema = &lexema[aux];
+        else if (lexema[aux].token == 11) multiplyLexema = &lexema[aux];
+        else if (lexema[aux].token == 12) divideLexema = &lexema[aux];
+        else if (lexema[aux].token == 13) equalsLexema = &lexema[aux];
+        else if (lexema[aux].token == 14) gtLexema = &lexema[aux];
+        else if (lexema[aux].token == 18) assignLexema = &lexema[aux];
+        else if (lexema[aux].token == 19) ltLexema = &lexema[aux];
+        else if (lexema[aux].token == 20) leLexema = &lexema[aux];
+        else if (lexema[aux].token == 21) geLexema = &lexema[aux];
+        else if (lexema[aux].token == 27) netLexema = &lexema[aux];
+   
         // Prepara o valor de retorno para o Bison/Yacc
         int currentToken = lexema[aux].token;
         // Atualiza o último lexema processado
-        ultimoLexema = lexema[aux].lexemaBuffer;
+        ultimoLexema = strdup(lexema[aux].lexemaBuffer);
         ultimaLinha = lexema[aux].linha;
         
-        yylval = &lexema[aux]; // Dependendo da sua implementação
+        //yylval.lexema = &lexema[aux];
+
+        //pushLexema(listLexema, &lexema[aux]);
 
         aux++; // Incrementa o índice do array de lexemas
 
         return currentToken; // Retorna o token atual para o Bison/Yacc
     }
+
+    
 
     // Caso não encontre um token válido, chama yylex novamente
     return yylex();

@@ -1,4 +1,4 @@
-#include "funcs.h" // Inclui as declarações das funções que você definiu em funcs.h
+#include "../h/funcs.h" // Inclui as declarações das funções que você definiu em funcs.h
 
 int main(int argc, char *argv[])
 {
@@ -21,12 +21,18 @@ int main(int argc, char *argv[])
 
     // Aloca memória para o buffer
     allocate_buffer();
+    listLexema = initLexemaList();
 
+    printf("\n\n----------------------------Analisador Léxico----------------------------\n\n");
     // analisadorSintatico();
     parse();
 
+    printf("\n\n----------------------------Analisador Semântico----------------------------\n\n");
+
     // Libera a memória alocada para o buffer
     deallocate_buffer();
+
+    deallocateNode(raizDaArvore);
 
     // Fecha o arquivo
     fclose(file);

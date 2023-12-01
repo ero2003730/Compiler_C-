@@ -1,6 +1,3 @@
-#ifndef FUNCS_H
-#define FUNCS_H
-
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -24,34 +21,34 @@ extern int ultimaLinha;       // Variável que irá identificar a linha do erro
 
 typedef enum
 {
-    T_INIC,         // INICIO
-    T_INT,          // INT
-    T_IF,           // IF
-    T_RETURN,       // RETURN
-    T_ELSE,         // ELSE
-    T_VOID,         // VOID
-    T_WHILE,        // WHILE
-    T_ID,           // ID
-    T_NUM,          // NUM
-    T_PLUS,         // SUM
-    T_MINUS,        // MINUS
-    T_MULTIPLY,     // MULTIPLY
-    T_DIVIDE,       // BAR
-    T_EQUALS,       // EQUAL
-    T_GT,           // GREATER (Greater Than)
-    T_RPAREN,       // PARENTHESIS_RIGHT
-    T_LPAREN,       // PARENTHESIS_LEFT
-    T_SEMICOLON,    // SEMICOMMA
-    T_ASSIGN,       // ATRIBUTION
-    T_LT,           // LESSER (Less Than)
-    T_LE,           // EQUALorLESSER (Less or Equal)
-    T_GE,           // EQUALorGREATER (Greater or Equal)
-    T_COMMA,        // COMMA
-    T_OPENBRACKET,  // OPEN BRACKET
-    T_CLOSEBRACKET, // CLOSE BRACKET
-    T_OPENBRACE,    // OPEN BRACE
-    T_CLOSEBRACE,   // CLOSE BRACE
-    T_NET,          // NOT EQUAL
+    T_INIC = 0,          // INICIO
+    T_INT = 1,           // INT
+    T_IF = 2,            // IF
+    T_RETURN = 3,        // RETURN
+    T_ELSE = 4,          // ELSE
+    T_VOID = 5,          // VOID
+    T_WHILE = 6,         // WHILE
+    T_ID = 7,            // ID
+    T_NUM = 8,           // NUM
+    T_PLUS = 9,          // SUM
+    T_MINUS = 10,        // MINUS
+    T_MULTIPLY = 11,     // MULTIPLY
+    T_DIVIDE = 12,       // BAR
+    T_EQUALS = 13,       // EQUAL
+    T_GT = 14,           // GREATER (Greater Than)
+    T_RPAREN = 15,       // PARENTHESIS_RIGHT
+    T_LPAREN = 16,       // PARENTHESIS_LEFT
+    T_SEMICOLON = 17,    // SEMICOMMA
+    T_ASSIGN = 18,       // ATRIBUTION
+    T_LT = 19,           // LESSER (Less Than)
+    T_LE = 20,           // EQUALorLESSER (Less or Equal)
+    T_GE = 21,           // EQUALorGREATER (Greater or Equal)
+    T_COMMA = 22,        // COMMA
+    T_OPENBRACKET = 23,  // OPEN BRACKET
+    T_CLOSEBRACKET = 24, // CLOSE BRACKET
+    T_OPENBRACE = 25,    // OPEN BRACE
+    T_CLOSEBRACE = 26,   // CLOSE BRACE
+    T_NET = 27,          // NOT EQUAL
 } token;
 
 // struct do Lexema, que contem cada lexema e as linhas
@@ -70,14 +67,6 @@ typedef struct BSTNode
     struct BSTNode *right;
 } BSTNode;
 
-typedef struct ASTNode
-{
-    char *type;            // Tipo do nó (por exemplo, "operador", "identificador")
-    char *value;           // Valor do nó (por exemplo, nome de um identificador, valor de um número)
-    struct ASTNode *left;  // Filho esquerdo
-    struct ASTNode *right; // Filho direito
-} ASTNode;
-
 void allocate_buffer();                                                            // Função para alocar memória
 int fill_buffer(FILE *file);                                                       // Função para preencher o buffer
 void get_token();                                                                  // Função para pegar o proximo token
@@ -85,14 +74,10 @@ char get_next_char(FILE *file);                                                 
 int get_position(char c);                                                          // Função que irá pegar qual a coluna da matriz do caractere
 void get_lexema(char *lexemaBuffer, int aux, int i);                               // Função que irá pegar o lexema e verificar o token
 char *return_Token(int token);                                                     // Função que retorna o token (no ENUM)
-ASTNode *createNode(char *type, char *value, ASTNode *left, ASTNode *right);       // Função que irá criar os nós da arvore sintatica
-void analisadorSintatico();                                                        // print
-int parse();                                                                       // Parser
-void deallocate_buffer();                                                          // Função para desalocar memória
 BSTNode *initBST();                                                                // Função para iniciar a árvore de busca binária
 token searchInBST(BSTNode *node, char *keyword);                                   // Função que irá procurar a palavra reservada
 BSTNode *newBSTNode(char *keyword, token tok);                                     // Função do novo nó
 BSTNode *insertIntoBST(BSTNode *node, char *keyword, token tok);                   // Função para inserir no nó
 void identify_keyword_or_id_using_bst(char *lexemaBuffer, int aux, BSTNode *root); // Função para chamar a busca
-
-#endif
+void deallocate_buffer();                                                          // Função para desalocar memória
+void deallocateBST(BSTNode *node);                                                 // Função para desalocar memória da árvore
