@@ -18,6 +18,7 @@ extern int aux;               // Posição na struct
 extern int final;             // Variável final arquivo
 extern char *ultimoLexema;    // Uma variável global para armazenar o último lexema processado
 extern int ultimaLinha;       // Variável que irá identificar a linha do erro
+extern int linhaComentario;    // Para saber onde aconteceu a abertura de comentario
 
 typedef enum
 {

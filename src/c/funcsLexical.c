@@ -13,6 +13,7 @@ int aux = 0;
 int final = 0;
 char *ultimoLexema = NULL; // Inicialize com NULL
 int ultimaLinha = 1;
+int linhaComentario = 1;
 
 // Função para alocar memória para o buffer
 void allocate_buffer()
@@ -404,7 +405,7 @@ void get_token()
     if (c == EOF)
     {
         final = 1;
-        void deallocateBST(root);
+        deallocateBST(root);
         return;
     }
 
@@ -425,7 +426,7 @@ void get_token()
         {
             printf("Erro: caractere: '%c', na linha %d não eh válido\n", c, lines);
             final = -1;
-            void deallocateBST(root);
+            deallocateBST(root);
             return;
         }
 
@@ -440,6 +441,7 @@ void get_token()
             // a condição de estado = 7 e novo_estado = 8, então para não pegá-la,
             // iremos colocar um \0 para zerar
             lexema[aux].lexemaBuffer[0] = '\0';
+            linhaComentario = lines;
 
             int comentarioFechado = 0;
             c = get_next_char(file);
@@ -479,8 +481,8 @@ void get_token()
             // Se não encontrar o final do comentário, '*/' isso é um erro, logo printar erro
             if (!comentarioFechado)
             {
-                printf("Erro: comentario nao fechado antes do fim do arquivo na linha %d\n", lines);
-                void deallocateBST(root);
+                printf("Erro: Comentario aberto na linha %d, mas nao fechado antes do fim do arquivo\n", linhaComentario);
+                deallocateBST(root);
                 final = -1;
                 return;
             }
@@ -565,7 +567,7 @@ void get_token()
     else if (novo_estado == 11)
     {
         printf("Erro na linha %d: O caractere '!' foi encontrado, mas deve ser seguido imediatamente por um '=' para formar o operador '!=' válido.\n", lines);
-        void deallocateBST(root);
+        deallocateBST(root);
         final = -1;
         return;
     }

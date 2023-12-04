@@ -1,7 +1,7 @@
 CC=gcc
 CFLAGS=-I./src/h
 BISON_FILES=./src/bison/bison.y
-C_FILES=./src/c/main.c ./src/c/funcsLexical.c ./src/c/funcsSintatical.c
+C_FILES=./src/c/main.c ./src/c/funcsLexical.c ./src/c/funcsSintatical.c ./src/c/funcsTabela.c
 OUTPUT=program
 
 all: bison compile run

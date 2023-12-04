@@ -554,13 +554,13 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int16 yyrline[] =
 {
-       0,    84,    84,    94,   104,   106,   107,   109,   128,   153,
-     160,   169,   187,   201,   202,   210,   220,   222,   236,   251,
-     261,   270,   272,   287,   289,   290,   291,   292,   293,   295,
-     296,   299,   314,   322,   324,   336,   341,   350,   360,   362,
-     377,   395,   404,   407,   408,   409,   410,   411,   412,   414,
-     420,   422,   426,   431,   437,   439,   446,   452,   453,   454,
-     464,   467,   473,   474,   476,   485
+       0,    84,    84,    89,    99,   101,   102,   104,   123,   148,
+     155,   164,   182,   196,   197,   205,   215,   217,   232,   248,
+     258,   267,   269,   284,   286,   287,   288,   289,   290,   292,
+     293,   296,   311,   319,   321,   333,   338,   347,   357,   359,
+     374,   392,   402,   405,   406,   407,   408,   409,   410,   412,
+     419,   421,   425,   430,   437,   439,   443,   449,   450,   451,
+     461,   464,   471,   472,   474,   483
 };
 #endif
 
@@ -1198,17 +1198,12 @@ yyreduce:
 #line 85 "./src/bison/bison.y"
             { 
                 raizDaArvore = (yyvsp[0].astNode); 
-                printf("\n");
-               printf("\n\n----------------------------Analisador Sintática----------------------------\n\n");
-                printf("\n");
-
-                print_ast(raizDaArvore, 1);
             }
-#line 1208 "./src/c/bison.tab.c"
+#line 1203 "./src/c/bison.tab.c"
     break;
 
   case 3: /* declaracao_lista: declaracao_lista declaracao  */
-#line 95 "./src/bison/bison.y"
+#line 90 "./src/bison/bison.y"
             {
                 if ((yyvsp[-1].astNode) != NULL)
                 {
@@ -1218,91 +1213,91 @@ yyreduce:
                 }
                 else (yyval.astNode) = (yyvsp[0].astNode);
             }
-#line 1222 "./src/c/bison.tab.c"
+#line 1217 "./src/c/bison.tab.c"
     break;
 
   case 4: /* declaracao_lista: declaracao  */
-#line 104 "./src/bison/bison.y"
+#line 99 "./src/bison/bison.y"
                          { (yyval.astNode) = (yyvsp[0].astNode); }
-#line 1228 "./src/c/bison.tab.c"
+#line 1223 "./src/c/bison.tab.c"
     break;
 
   case 5: /* declaracao: var_declaracao  */
-#line 106 "./src/bison/bison.y"
+#line 101 "./src/bison/bison.y"
                                     { (yyval.astNode) = (yyvsp[0].astNode); }
-#line 1234 "./src/c/bison.tab.c"
+#line 1229 "./src/c/bison.tab.c"
     break;
 
   case 6: /* declaracao: fun_declaracao  */
-#line 107 "./src/bison/bison.y"
+#line 102 "./src/bison/bison.y"
                                  { (yyval.astNode) = (yyvsp[0].astNode); }
-#line 1240 "./src/c/bison.tab.c"
+#line 1235 "./src/c/bison.tab.c"
     break;
 
   case 7: /* var_declaracao: tipo_especificador TOKEN_ID TOKEN_SEMICOLON  */
-#line 110 "./src/bison/bison.y"
+#line 105 "./src/bison/bison.y"
             {
                 //printf("DECLARACAO RECONHECIDA\n");
 
                 (yyval.astNode) = (yyvsp[-2].astNode); // Reutiliza o nó do tipo especificador
                 (yyval.astNode)->type = R_var_declaracao; // Define o tipo do nó
                 
-                ASTNode *aux = createNode(R_default, idLexema); 
+                ASTNode *son = createNode(R_default, idLexema); 
 
-                aux->lexema = popLexema(listLexema);
+                son->lexema = popLexema(listLexema);
 
-                //printf("Lexema aux é: %s\n", aux->lexema->lexemaBuffer);
+                //printf("Lexema son é: %s\n", son->lexema->lexemaBuffer);
 
-                addSon((yyval.astNode), aux);
+                addSon((yyval.astNode), son);
 
                 //printf("Lexema é: %s\n", $$->lexema->lexemaBuffer);
 
                 //printf("DECLARACAO RECONHECIDA ACABOU\n");
             }
-#line 1263 "./src/c/bison.tab.c"
+#line 1258 "./src/c/bison.tab.c"
     break;
 
   case 8: /* var_declaracao: tipo_especificador TOKEN_ID TOKEN_OPENBRACKET TOKEN_NUM TOKEN_CLOSEBRACKET TOKEN_SEMICOLON  */
-#line 129 "./src/bison/bison.y"
+#line 124 "./src/bison/bison.y"
             {
                 //printf("DECLARACAO VAR RECONHECIDA\n");
                 (yyval.astNode) = (yyvsp[-5].astNode); // Reutiliza o nó do tipo_especificador
-                (yyval.astNode)->type = R_var_declaracao; // Define o tipo do nó
+                (yyval.astNode)->type = R_var_declaracao_vet; // Define o tipo do nó
                 // Supondo que o número da linha já esteja definido em tipo_especificador
 
-                ASTNode *aux1 = createNode(R_default, idLexema); // Cria um nó auxiliar para o identificador
-                aux1->lexema = popLexema(listLexema);
+                ASTNode *son1 = createNode(R_default, idLexema); // Cria um nó auxiliar para o identificador
+                son1->lexema = popLexema(listLexema);
                 
                 //printf("Pai: %s\n", $$->lexema->lexemaBuffer);
-                //printf("Filho aux 1 é: %s\n", aux1->lexema->lexemaBuffer);
+                //printf("Filho aux 1 é: %s\n", son1->lexema->lexemaBuffer);
 
-                ASTNode *aux2 = createNode(R_default, numLexema); // Cria um nó auxiliar para o número (tamanho do array)
-                aux2->lexema = popLexema(listLexema);
+                ASTNode *son2 = createNode(R_default, numLexema); // Cria um nó auxiliar para o número (tamanho do array)
+                son2->lexema = popLexema(listLexema);
 
                 //printf("Pai: %s\n", $$->lexema->lexemaBuffer);
-                //printf("Filho aux 2 é: %s\n", aux2->lexema->lexemaBuffer);
+                //printf("Filho aux 2 é: %s\n", son2->lexema->lexemaBuffer);
 
-                addSon((yyval.astNode), aux2); // Adiciona o segundo nó auxiliar como filho
-                addSon((yyval.astNode), aux1); // Adiciona o primeir nó auxiliar como filho
+                addSon((yyval.astNode), son2); // Adiciona o segundo nó auxiliar como filho
+                addSon((yyval.astNode), son1); // Adiciona o primeir nó auxiliar como filho
 
                 //printf("DECLARACAO VAR RECONHECIDA ACABOU\n");
             }
-#line 1291 "./src/c/bison.tab.c"
+#line 1286 "./src/c/bison.tab.c"
     break;
 
   case 9: /* tipo_especificador: TOKEN_INT  */
-#line 154 "./src/bison/bison.y"
+#line 149 "./src/bison/bison.y"
             {
                 //printf("TIPO ESPECIFICADOR RECONHECIDO\n");
                 (yyval.astNode) = createNode(R_tipo_especificador, intLexema); // Usando intLexema
                 //printf("Int: %s\n", $$->lexema->lexemaBuffer);
                 //printf("TIPO ESPECIFICADOR RECONHECIDO ACABOU\n");
             }
-#line 1302 "./src/c/bison.tab.c"
+#line 1297 "./src/c/bison.tab.c"
     break;
 
   case 10: /* tipo_especificador: TOKEN_VOID  */
-#line 161 "./src/bison/bison.y"
+#line 156 "./src/bison/bison.y"
             {
                 //printf("TIPO ESPECIFICADOR RECONHECIDO VOID\n");
                 (yyval.astNode) = createNode(R_tipo_especificador, voidLexema); // Usando voidLexema
@@ -1310,11 +1305,11 @@ yyreduce:
                 //printf("TIPO ESPECIFICADOR RECONHECIDO ACABOU\n");
                 //strcpy($$->lexema->lexemaBuffer, "VOID");
             }
-#line 1314 "./src/c/bison.tab.c"
+#line 1309 "./src/c/bison.tab.c"
     break;
 
   case 11: /* fun_declaracao: tipo_especificador fun_id TOKEN_LPAREN params TOKEN_RPAREN composto_decl  */
-#line 170 "./src/bison/bison.y"
+#line 165 "./src/bison/bison.y"
             {
                 //printf("DECLARACAO FUN RECONHECIDA\n");
                 (yyval.astNode) = (yyvsp[-5].astNode);
@@ -1331,45 +1326,45 @@ yyreduce:
 
                 //printf("DECLARACAO FUN RECONHECIDA ACABOU\n");    
             }
-#line 1335 "./src/c/bison.tab.c"
+#line 1330 "./src/c/bison.tab.c"
     break;
 
   case 12: /* fun_id: TOKEN_ID  */
-#line 188 "./src/bison/bison.y"
+#line 183 "./src/bison/bison.y"
             {
                 //printf("ID FUN RECONHECIDO\n");
                 (yyval.astNode) = createNode(R_default, idLexema);
                 //printf("Pai antes: %s\n", $$->lexema->lexemaBuffer);
-                ASTNode *aux = createNode(R_default, NULL); // Cria um nó auxiliar para o identificador
-                aux->lexema = popLexema(listLexema);
+                ASTNode *node = createNode(R_default, NULL); // Cria um nó auxiliar para o identificador
+                node->lexema = popLexema(listLexema);
 
-                (yyval.astNode)->lexema = aux->lexema;
+                (yyval.astNode)->lexema = node->lexema;
 
                 //printf("Pai depois: %s\n", $$->lexema->lexemaBuffer);
                 //printf("ID FUN RECONHECIDO ACABOU\n");
             }
-#line 1352 "./src/c/bison.tab.c"
+#line 1347 "./src/c/bison.tab.c"
     break;
 
   case 13: /* params: param_lista  */
-#line 201 "./src/bison/bison.y"
+#line 196 "./src/bison/bison.y"
                              { (yyval.astNode) = (yyvsp[0].astNode); }
-#line 1358 "./src/c/bison.tab.c"
+#line 1353 "./src/c/bison.tab.c"
     break;
 
   case 14: /* params: TOKEN_VOID  */
-#line 203 "./src/bison/bison.y"
+#line 198 "./src/bison/bison.y"
             {
                 //printf("PARAMS RECONHECIDO\n");
                 (yyval.astNode) = createNode(R_params, voidLexema); // Usando voidLexema
                 //printf("Pai: %s\n", $$->lexema->lexemaBuffer);
                 //printf("PARAMS RECONHECIDO\n");
             }
-#line 1369 "./src/c/bison.tab.c"
+#line 1364 "./src/c/bison.tab.c"
     break;
 
   case 15: /* param_lista: param_lista TOKEN_COMMA param  */
-#line 211 "./src/bison/bison.y"
+#line 206 "./src/bison/bison.y"
             {
                 if ((yyvsp[-2].astNode) != NULL)
                 {
@@ -1379,53 +1374,55 @@ yyreduce:
                 }
                 else (yyval.astNode) = (yyvsp[0].astNode);
                 }
-#line 1383 "./src/c/bison.tab.c"
+#line 1378 "./src/c/bison.tab.c"
     break;
 
   case 16: /* param_lista: param  */
-#line 220 "./src/bison/bison.y"
+#line 215 "./src/bison/bison.y"
                      {(yyval.astNode) = (yyvsp[0].astNode);}
-#line 1389 "./src/c/bison.tab.c"
+#line 1384 "./src/c/bison.tab.c"
     break;
 
   case 17: /* param: tipo_especificador TOKEN_ID  */
-#line 223 "./src/bison/bison.y"
+#line 218 "./src/bison/bison.y"
             {
                 //printf("PARAM RECONHECIDO\n");
                 (yyval.astNode) = (yyvsp[-1].astNode);
-                ASTNode *aux = createNode(R_default, idLexema);
+                (yyval.astNode)->type = R_param_int;
+                ASTNode *son = createNode(R_default, idLexema);
 
-                aux->lexema = popLexema(listLexema);
+                son->lexema = popLexema(listLexema);
                  
                 //printf("Pai: %s\n", $$->lexema->lexemaBuffer);
-                //printf("Filho aux 1 é: %s\n", aux->lexema->lexemaBuffer);
+                //printf("Filho son 1 é: %s\n", son->lexema->lexemaBuffer);
 
-                addSon((yyval.astNode), aux);
+                addSon((yyval.astNode), son);
                 //printf("PARAM RECONHECIDO ACABOOU\n");
             }
-#line 1407 "./src/c/bison.tab.c"
+#line 1403 "./src/c/bison.tab.c"
     break;
 
   case 18: /* param: tipo_especificador TOKEN_ID TOKEN_OPENBRACKET TOKEN_CLOSEBRACKET  */
-#line 237 "./src/bison/bison.y"
+#line 233 "./src/bison/bison.y"
             {
                 //printf("PARAM RECONHECIDO\n");
                 (yyval.astNode) = (yyvsp[-3].astNode);
-                ASTNode *aux = createNode(R_default, idLexema);
+                (yyval.astNode)->type = R_param_vet;
+                ASTNode *son = createNode(R_default, idLexema);
 
-                aux->lexema = popLexema(listLexema);
+                son->lexema = popLexema(listLexema);
 
                 //printf("Pai: %s\n", $$->lexema->lexemaBuffer);
-                //printf("Filho aux 1 é: %s\n", aux->lexema->lexemaBuffer);
+                //printf("Filho son 1 é: %s\n", son->lexema->lexemaBuffer);
 
-                addSon((yyval.astNode), aux);
+                addSon((yyval.astNode), son);
                 //printf("PARAM RECONHECIDO ACABOU\n");  
             }
-#line 1425 "./src/c/bison.tab.c"
+#line 1422 "./src/c/bison.tab.c"
     break;
 
   case 19: /* composto_decl: TOKEN_OPENBRACE local_declaracoes statement_lista TOKEN_CLOSEBRACE  */
-#line 252 "./src/bison/bison.y"
+#line 249 "./src/bison/bison.y"
             {
                 if ((yyvsp[-2].astNode) != NULL)
                 {
@@ -1434,11 +1431,11 @@ yyreduce:
                 }
                 else if ((yyvsp[-2].astNode) == NULL) (yyval.astNode) = (yyvsp[-1].astNode);
             }
-#line 1438 "./src/c/bison.tab.c"
+#line 1435 "./src/c/bison.tab.c"
     break;
 
   case 20: /* local_declaracoes: local_declaracoes var_declaracao  */
-#line 262 "./src/bison/bison.y"
+#line 259 "./src/bison/bison.y"
             {
                 if ((yyvsp[-1].astNode) != NULL)
                 {
@@ -1447,17 +1444,17 @@ yyreduce:
                 }
                 else (yyval.astNode) = (yyvsp[0].astNode);
             }
-#line 1451 "./src/c/bison.tab.c"
+#line 1448 "./src/c/bison.tab.c"
     break;
 
   case 21: /* local_declaracoes: %empty  */
-#line 270 "./src/bison/bison.y"
+#line 267 "./src/bison/bison.y"
                           { (yyval.astNode) = NULL; }
-#line 1457 "./src/c/bison.tab.c"
+#line 1454 "./src/c/bison.tab.c"
     break;
 
   case 22: /* statement_lista: statement_lista statement  */
-#line 273 "./src/bison/bison.y"
+#line 270 "./src/bison/bison.y"
             {
                 if ((yyvsp[-1].astNode) != NULL)
                 {
@@ -1471,59 +1468,59 @@ yyreduce:
                     //printf("Entrei aqui 2\n");
                 }
             }
-#line 1475 "./src/c/bison.tab.c"
+#line 1472 "./src/c/bison.tab.c"
     break;
 
   case 23: /* statement_lista: %empty  */
-#line 287 "./src/bison/bison.y"
+#line 284 "./src/bison/bison.y"
             { (yyval.astNode) = NULL; }
-#line 1481 "./src/c/bison.tab.c"
+#line 1478 "./src/c/bison.tab.c"
     break;
 
   case 24: /* statement: expressao_decl  */
-#line 289 "./src/bison/bison.y"
+#line 286 "./src/bison/bison.y"
                                    { (yyval.astNode) = (yyvsp[0].astNode); }
-#line 1487 "./src/c/bison.tab.c"
+#line 1484 "./src/c/bison.tab.c"
     break;
 
   case 25: /* statement: composto_decl  */
-#line 290 "./src/bison/bison.y"
+#line 287 "./src/bison/bison.y"
                                 { (yyval.astNode) = (yyvsp[0].astNode); }
-#line 1493 "./src/c/bison.tab.c"
+#line 1490 "./src/c/bison.tab.c"
     break;
 
   case 26: /* statement: selecao_decl  */
-#line 291 "./src/bison/bison.y"
+#line 288 "./src/bison/bison.y"
                                { (yyval.astNode) = (yyvsp[0].astNode); }
-#line 1499 "./src/c/bison.tab.c"
+#line 1496 "./src/c/bison.tab.c"
     break;
 
   case 27: /* statement: iteracao_decl  */
-#line 292 "./src/bison/bison.y"
+#line 289 "./src/bison/bison.y"
                                 { (yyval.astNode) = (yyvsp[0].astNode); }
-#line 1505 "./src/c/bison.tab.c"
+#line 1502 "./src/c/bison.tab.c"
     break;
 
   case 28: /* statement: retorno_decl  */
-#line 293 "./src/bison/bison.y"
+#line 290 "./src/bison/bison.y"
                                { (yyval.astNode) = (yyvsp[0].astNode); }
-#line 1511 "./src/c/bison.tab.c"
+#line 1508 "./src/c/bison.tab.c"
     break;
 
   case 29: /* expressao_decl: expressao TOKEN_SEMICOLON  */
-#line 295 "./src/bison/bison.y"
+#line 292 "./src/bison/bison.y"
                                                    { (yyval.astNode) = (yyvsp[-1].astNode); }
-#line 1517 "./src/c/bison.tab.c"
+#line 1514 "./src/c/bison.tab.c"
     break;
 
   case 30: /* expressao_decl: TOKEN_SEMICOLON  */
-#line 296 "./src/bison/bison.y"
+#line 293 "./src/bison/bison.y"
                                   { (yyval.astNode) = NULL; }
-#line 1523 "./src/c/bison.tab.c"
+#line 1520 "./src/c/bison.tab.c"
     break;
 
   case 31: /* selecao_decl: TOKEN_IF TOKEN_LPAREN expressao TOKEN_RPAREN statement fat_else  */
-#line 300 "./src/bison/bison.y"
+#line 297 "./src/bison/bison.y"
         {
             (yyval.astNode) = createNode(R_selecao_decl, ifLexema); // Usando ifLexema
             //printf("Pai: %s\n", $$->lexema->lexemaBuffer);
@@ -1537,11 +1534,11 @@ yyreduce:
                 //printf("Filho 3: %s\n", $6->lexema->lexemaBuffer);
             }
         }
-#line 1541 "./src/c/bison.tab.c"
+#line 1538 "./src/c/bison.tab.c"
     break;
 
   case 32: /* fat_else: TOKEN_ELSE statement  */
-#line 315 "./src/bison/bison.y"
+#line 312 "./src/bison/bison.y"
         {
             (yyval.astNode) = createNode(R_selecao_decl, elseLexema);  
 
@@ -1550,17 +1547,17 @@ yyreduce:
 
             addSon((yyval.astNode),(yyvsp[0].astNode));  
         }
-#line 1554 "./src/c/bison.tab.c"
+#line 1551 "./src/c/bison.tab.c"
     break;
 
   case 33: /* fat_else: %empty  */
-#line 322 "./src/bison/bison.y"
+#line 319 "./src/bison/bison.y"
                         { (yyval.astNode) = NULL; }
-#line 1560 "./src/c/bison.tab.c"
+#line 1557 "./src/c/bison.tab.c"
     break;
 
   case 34: /* iteracao_decl: TOKEN_WHILE TOKEN_LPAREN expressao TOKEN_RPAREN statement  */
-#line 325 "./src/bison/bison.y"
+#line 322 "./src/bison/bison.y"
             {
                 (yyval.astNode) = createNode(R_iteracao_decl, whileLexema); // Usando whileLexema
                 
@@ -1571,32 +1568,32 @@ yyreduce:
                 addSon((yyval.astNode), (yyvsp[-2].astNode));
                 addSon((yyval.astNode), (yyvsp[0].astNode));
             }
-#line 1575 "./src/c/bison.tab.c"
+#line 1572 "./src/c/bison.tab.c"
     break;
 
   case 35: /* retorno_decl: TOKEN_RETURN TOKEN_SEMICOLON  */
-#line 337 "./src/bison/bison.y"
+#line 334 "./src/bison/bison.y"
             {
-                (yyval.astNode) = createNode(R_retorno_decl, returnLexema); // Usando returnLexema
+                (yyval.astNode) = createNode(R_retorno_decl_int, returnLexema); // Usando returnLexema
                 //printf("Pai: %s\n", returnLexema->lexemaBuffer);
             }
-#line 1584 "./src/c/bison.tab.c"
+#line 1581 "./src/c/bison.tab.c"
     break;
 
   case 36: /* retorno_decl: TOKEN_RETURN expressao TOKEN_SEMICOLON  */
-#line 342 "./src/bison/bison.y"
+#line 339 "./src/bison/bison.y"
             {
-                (yyval.astNode) = createNode(R_retorno_decl, returnLexema); // Usando returnLexema
+                (yyval.astNode) = createNode(R_retorno_decl_void, returnLexema); // Usando returnLexema
                 //printf("Pai: %s\n", $$->lexema->lexemaBuffer);
                 //printf("Filho: %s\n", $2->lexema->lexemaBuffer);
 
                 addSon((yyval.astNode), (yyvsp[-1].astNode));
             }
-#line 1596 "./src/c/bison.tab.c"
+#line 1593 "./src/c/bison.tab.c"
     break;
 
   case 37: /* expressao: var TOKEN_ASSIGN expressao  */
-#line 351 "./src/bison/bison.y"
+#line 348 "./src/bison/bison.y"
             {
                 (yyval.astNode) = createNode(R_expressao, assignLexema); // Usando assignLexema
                 //printf("Pai: %s\n", $$->lexema->lexemaBuffer);
@@ -1606,146 +1603,149 @@ yyreduce:
                 addSon((yyval.astNode), (yyvsp[-2].astNode));
                 addSon((yyval.astNode), (yyvsp[0].astNode));
             }
-#line 1610 "./src/c/bison.tab.c"
+#line 1607 "./src/c/bison.tab.c"
     break;
 
   case 38: /* expressao: simples_expressao  */
-#line 360 "./src/bison/bison.y"
+#line 357 "./src/bison/bison.y"
                                 { (yyval.astNode) = (yyvsp[0].astNode); }
-#line 1616 "./src/c/bison.tab.c"
+#line 1613 "./src/c/bison.tab.c"
     break;
 
   case 39: /* var: TOKEN_ID  */
-#line 363 "./src/bison/bison.y"
+#line 360 "./src/bison/bison.y"
             {
                 
-                (yyval.astNode) = createNode(R_var, idLexema); // Usando idLexema
+                (yyval.astNode) = createNode(R_var_id, idLexema); // Usando idLexema
 
-                ASTNode *aux = createNode(R_default, NULL);
+                ASTNode *son = createNode(R_default, NULL);
 
-                aux->lexema = popLexema(listLexema);
+                son->lexema = popLexema(listLexema);
 
                 //printf("$$ antes: %s\n", $$->lexema->lexemaBuffer);
 
-                (yyval.astNode)->lexema = aux->lexema;
+                (yyval.astNode)->lexema = son->lexema;
 
                 //printf("$$ depois: %s\n", $$->lexema->lexemaBuffer); 
             }
-#line 1635 "./src/c/bison.tab.c"
+#line 1632 "./src/c/bison.tab.c"
     break;
 
   case 40: /* var: TOKEN_ID TOKEN_OPENBRACKET expressao TOKEN_CLOSEBRACKET  */
-#line 378 "./src/bison/bison.y"
+#line 375 "./src/bison/bison.y"
             {
-                (yyval.astNode) = createNode(R_var, idLexema); // Usando idLexema
+                (yyval.astNode) = createNode(R_var_vet, idLexema); // Usando idLexema
 
-                ASTNode *aux = createNode(R_default, NULL);
+                ASTNode *son = createNode(R_default, NULL);
 
-                aux->lexema = popLexema(listLexema);
+                son->lexema = popLexema(listLexema);
 
                 //printf("$$ antes: %s\n", $$->lexema->lexemaBuffer);
 
-                (yyval.astNode)->lexema = aux->lexema;
+                (yyval.astNode)->lexema = son->lexema;
 
                 //printf("$$ depos: %s\n", $$->lexema->lexemaBuffer);
                 //printf("Filho: %s\n", $3->lexema->lexemaBuffer);
 
                 addSon((yyval.astNode), (yyvsp[-1].astNode));    
             }
-#line 1656 "./src/c/bison.tab.c"
+#line 1653 "./src/c/bison.tab.c"
     break;
 
   case 41: /* simples_expressao: soma_expressao relacional soma_expressao  */
-#line 396 "./src/bison/bison.y"
+#line 393 "./src/bison/bison.y"
             {
                 (yyval.astNode) = (yyvsp[-1].astNode); 
+                (yyval.astNode)->type = R_simples_expressao;
                 //printf("Pai: %s\n", $$->lexema->lexemaBuffer);
                 //printf("Filho 1: %s\n", $1->lexema->lexemaBuffer);
                 addSon((yyval.astNode), (yyvsp[-2].astNode));
                 //printf("Filho 3: %s\n", $3->lexema->lexemaBuffer);
                 addSon((yyval.astNode), (yyvsp[0].astNode));
             }
-#line 1669 "./src/c/bison.tab.c"
+#line 1667 "./src/c/bison.tab.c"
     break;
 
   case 42: /* simples_expressao: soma_expressao  */
-#line 404 "./src/bison/bison.y"
+#line 402 "./src/bison/bison.y"
                              { (yyval.astNode) = (yyvsp[0].astNode); }
-#line 1675 "./src/c/bison.tab.c"
+#line 1673 "./src/c/bison.tab.c"
     break;
 
   case 43: /* relacional: TOKEN_LE  */
-#line 407 "./src/bison/bison.y"
+#line 405 "./src/bison/bison.y"
                      { (yyval.astNode) = createNode(R_relacional, leLexema); }
-#line 1681 "./src/c/bison.tab.c"
+#line 1679 "./src/c/bison.tab.c"
     break;
 
   case 44: /* relacional: TOKEN_LT  */
-#line 408 "./src/bison/bison.y"
+#line 406 "./src/bison/bison.y"
                        { (yyval.astNode) = createNode(R_relacional, ltLexema); }
-#line 1687 "./src/c/bison.tab.c"
+#line 1685 "./src/c/bison.tab.c"
     break;
 
   case 45: /* relacional: TOKEN_GT  */
-#line 409 "./src/bison/bison.y"
+#line 407 "./src/bison/bison.y"
                        { (yyval.astNode) = createNode(R_relacional, gtLexema); }
-#line 1693 "./src/c/bison.tab.c"
+#line 1691 "./src/c/bison.tab.c"
     break;
 
   case 46: /* relacional: TOKEN_GE  */
-#line 410 "./src/bison/bison.y"
+#line 408 "./src/bison/bison.y"
                         { (yyval.astNode) = createNode(R_relacional, geLexema); }
-#line 1699 "./src/c/bison.tab.c"
+#line 1697 "./src/c/bison.tab.c"
     break;
 
   case 47: /* relacional: TOKEN_EQUALS  */
-#line 411 "./src/bison/bison.y"
+#line 409 "./src/bison/bison.y"
                            { (yyval.astNode) = createNode(R_relacional, equalsLexema); }
-#line 1705 "./src/c/bison.tab.c"
+#line 1703 "./src/c/bison.tab.c"
     break;
 
   case 48: /* relacional: TOKEN_NET  */
-#line 412 "./src/bison/bison.y"
+#line 410 "./src/bison/bison.y"
                         { (yyval.astNode) = createNode(R_relacional, netLexema); }
-#line 1711 "./src/c/bison.tab.c"
+#line 1709 "./src/c/bison.tab.c"
     break;
 
   case 49: /* soma_expressao: soma_expressao soma termo  */
-#line 415 "./src/bison/bison.y"
+#line 413 "./src/bison/bison.y"
             {
                 (yyval.astNode) = (yyvsp[-1].astNode);
+                (yyval.astNode)->type = R_soma_expressao;
                 addSon((yyval.astNode), (yyvsp[-2].astNode));
                 addSon((yyval.astNode), (yyvsp[0].astNode)); 
             }
-#line 1721 "./src/c/bison.tab.c"
+#line 1720 "./src/c/bison.tab.c"
     break;
 
   case 50: /* soma_expressao: termo  */
-#line 420 "./src/bison/bison.y"
+#line 419 "./src/bison/bison.y"
                     { (yyval.astNode) = (yyvsp[0].astNode); }
-#line 1727 "./src/c/bison.tab.c"
+#line 1726 "./src/c/bison.tab.c"
     break;
 
   case 51: /* soma: TOKEN_PLUS  */
-#line 423 "./src/bison/bison.y"
+#line 422 "./src/bison/bison.y"
             { 
                 (yyval.astNode) = createNode(R_soma, plusLexema); 
             }
-#line 1735 "./src/c/bison.tab.c"
+#line 1734 "./src/c/bison.tab.c"
     break;
 
   case 52: /* soma: TOKEN_MINUS  */
-#line 427 "./src/bison/bison.y"
+#line 426 "./src/bison/bison.y"
             { 
                 (yyval.astNode) = createNode(R_soma, minusLexema); 
             }
-#line 1743 "./src/c/bison.tab.c"
+#line 1742 "./src/c/bison.tab.c"
     break;
 
   case 53: /* termo: termo mult fator  */
-#line 432 "./src/bison/bison.y"
+#line 431 "./src/bison/bison.y"
             {
                 (yyval.astNode) = (yyvsp[-1].astNode);
+                (yyval.astNode)->type = R_termo;
                 addSon((yyval.astNode), (yyvsp[-2].astNode));
                 addSon((yyval.astNode), (yyvsp[0].astNode));    
             }
@@ -1761,78 +1761,76 @@ yyreduce:
   case 55: /* mult: TOKEN_MULTIPLY  */
 #line 440 "./src/bison/bison.y"
             {
-                (yyval.astNode) = createNode(R_mult, multiplyLexema);
-
-                
-                
+                (yyval.astNode) = createNode(R_mult, multiplyLexema);  
             }
-#line 1770 "./src/c/bison.tab.c"
+#line 1767 "./src/c/bison.tab.c"
     break;
 
   case 56: /* mult: TOKEN_DIVIDE  */
-#line 447 "./src/bison/bison.y"
+#line 444 "./src/bison/bison.y"
             {
                 (yyval.astNode) = createNode(R_mult, divideLexema); 
                 
             }
-#line 1779 "./src/c/bison.tab.c"
+#line 1776 "./src/c/bison.tab.c"
     break;
 
   case 57: /* fator: TOKEN_LPAREN expressao TOKEN_RPAREN  */
-#line 452 "./src/bison/bison.y"
+#line 449 "./src/bison/bison.y"
                                                     { (yyval.astNode) = (yyvsp[-1].astNode); }
-#line 1785 "./src/c/bison.tab.c"
+#line 1782 "./src/c/bison.tab.c"
     break;
 
   case 58: /* fator: var  */
-#line 453 "./src/bison/bison.y"
+#line 450 "./src/bison/bison.y"
                   { (yyval.astNode) = (yyvsp[0].astNode); }
-#line 1791 "./src/c/bison.tab.c"
+#line 1788 "./src/c/bison.tab.c"
     break;
 
   case 59: /* fator: TOKEN_NUM  */
-#line 455 "./src/bison/bison.y"
+#line 452 "./src/bison/bison.y"
             {
                 (yyval.astNode) = createNode(R_fator, numLexema);
 
-                ASTNode *aux = createNode(R_default, NULL);
+                ASTNode *son = createNode(R_default, NULL);
 
-                aux->lexema = popLexema(listLexema);
+                son->lexema = popLexema(listLexema);
 
-                (yyval.astNode)->lexema = aux->lexema;
+                (yyval.astNode)->lexema = son->lexema;
             }
-#line 1805 "./src/c/bison.tab.c"
+#line 1802 "./src/c/bison.tab.c"
     break;
 
   case 60: /* fator: ativacao  */
-#line 464 "./src/bison/bison.y"
+#line 461 "./src/bison/bison.y"
                        { (yyval.astNode) = (yyvsp[0].astNode); }
-#line 1811 "./src/c/bison.tab.c"
+#line 1808 "./src/c/bison.tab.c"
     break;
 
   case 61: /* ativacao: fun_id TOKEN_LPAREN args TOKEN_RPAREN  */
-#line 468 "./src/bison/bison.y"
+#line 465 "./src/bison/bison.y"
             {
                 (yyval.astNode) = (yyvsp[-3].astNode);
+                (yyval.astNode)->type = R_ativacao;
                 addSon((yyval.astNode), (yyvsp[-1].astNode));           
             }
-#line 1820 "./src/c/bison.tab.c"
+#line 1818 "./src/c/bison.tab.c"
     break;
 
   case 62: /* args: arg_lista  */
-#line 473 "./src/bison/bison.y"
+#line 471 "./src/bison/bison.y"
                          { (yyval.astNode) = (yyvsp[0].astNode); }
-#line 1826 "./src/c/bison.tab.c"
+#line 1824 "./src/c/bison.tab.c"
     break;
 
   case 63: /* args: %empty  */
-#line 474 "./src/bison/bison.y"
+#line 472 "./src/bison/bison.y"
                           { (yyval.astNode) = NULL; }
-#line 1832 "./src/c/bison.tab.c"
+#line 1830 "./src/c/bison.tab.c"
     break;
 
   case 64: /* arg_lista: arg_lista TOKEN_COMMA expressao  */
-#line 477 "./src/bison/bison.y"
+#line 475 "./src/bison/bison.y"
             {
                 if ((yyvsp[-2].astNode) != NULL)
                 {
@@ -1841,19 +1839,19 @@ yyreduce:
                 }
                 else (yyval.astNode) = (yyvsp[0].astNode);
             }
-#line 1845 "./src/c/bison.tab.c"
+#line 1843 "./src/c/bison.tab.c"
     break;
 
   case 65: /* arg_lista: expressao  */
-#line 486 "./src/bison/bison.y"
+#line 484 "./src/bison/bison.y"
             {
                 (yyval.astNode) = (yyvsp[0].astNode);
             }
-#line 1853 "./src/c/bison.tab.c"
+#line 1851 "./src/c/bison.tab.c"
     break;
 
 
-#line 1857 "./src/c/bison.tab.c"
+#line 1855 "./src/c/bison.tab.c"
 
       default: break;
     }
@@ -2046,8 +2044,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 491 "./src/bison/bison.y"
-
+#line 489 "./src/bison/bison.y"
 
 
 
@@ -2066,7 +2063,10 @@ int yylex()
     static int count = 0; // Contador para chamadas de yylex
 
     // Checa se o final do arquivo foi atingido
-    if (final == 1 || final == -1) {
+    if (final == 1 || final == -1) 
+    {
+        
+
         return 0; // Retorna 0 para indicar o final do arquivo
     }
 

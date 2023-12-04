@@ -84,11 +84,6 @@
             : declaracao_lista 
             { 
                 raizDaArvore = $1; 
-                printf("\n");
-               printf("\n\n----------------------------Analisador Sintática----------------------------\n\n");
-                printf("\n");
-
-                print_ast(raizDaArvore, 1);
             } 
 
         declaracao_lista : declaracao_lista declaracao
@@ -113,13 +108,13 @@
                 $$ = $1; // Reutiliza o nó do tipo especificador
                 $$->type = R_var_declaracao; // Define o tipo do nó
                 
-                ASTNode *aux = createNode(R_default, idLexema); 
+                ASTNode *son = createNode(R_default, idLexema); 
 
-                aux->lexema = popLexema(listLexema);
+                son->lexema = popLexema(listLexema);
 
-                //printf("Lexema aux é: %s\n", aux->lexema->lexemaBuffer);
+                //printf("Lexema son é: %s\n", son->lexema->lexemaBuffer);
 
-                addSon($$, aux);
+                addSon($$, son);
 
                 //printf("Lexema é: %s\n", $$->lexema->lexemaBuffer);
 
@@ -129,23 +124,23 @@
             {
                 //printf("DECLARACAO VAR RECONHECIDA\n");
                 $$ = $1; // Reutiliza o nó do tipo_especificador
-                $$->type = R_var_declaracao; // Define o tipo do nó
+                $$->type = R_var_declaracao_vet; // Define o tipo do nó
                 // Supondo que o número da linha já esteja definido em tipo_especificador
 
-                ASTNode *aux1 = createNode(R_default, idLexema); // Cria um nó auxiliar para o identificador
-                aux1->lexema = popLexema(listLexema);
+                ASTNode *son1 = createNode(R_default, idLexema); // Cria um nó auxiliar para o identificador
+                son1->lexema = popLexema(listLexema);
                 
                 //printf("Pai: %s\n", $$->lexema->lexemaBuffer);
-                //printf("Filho aux 1 é: %s\n", aux1->lexema->lexemaBuffer);
+                //printf("Filho aux 1 é: %s\n", son1->lexema->lexemaBuffer);
 
-                ASTNode *aux2 = createNode(R_default, numLexema); // Cria um nó auxiliar para o número (tamanho do array)
-                aux2->lexema = popLexema(listLexema);
+                ASTNode *son2 = createNode(R_default, numLexema); // Cria um nó auxiliar para o número (tamanho do array)
+                son2->lexema = popLexema(listLexema);
 
                 //printf("Pai: %s\n", $$->lexema->lexemaBuffer);
-                //printf("Filho aux 2 é: %s\n", aux2->lexema->lexemaBuffer);
+                //printf("Filho aux 2 é: %s\n", son2->lexema->lexemaBuffer);
 
-                addSon($$, aux2); // Adiciona o segundo nó auxiliar como filho
-                addSon($$, aux1); // Adiciona o primeir nó auxiliar como filho
+                addSon($$, son2); // Adiciona o segundo nó auxiliar como filho
+                addSon($$, son1); // Adiciona o primeir nó auxiliar como filho
 
                 //printf("DECLARACAO VAR RECONHECIDA ACABOU\n");
             };
@@ -189,10 +184,10 @@
                 //printf("ID FUN RECONHECIDO\n");
                 $$ = createNode(R_default, idLexema);
                 //printf("Pai antes: %s\n", $$->lexema->lexemaBuffer);
-                ASTNode *aux = createNode(R_default, NULL); // Cria um nó auxiliar para o identificador
-                aux->lexema = popLexema(listLexema);
+                ASTNode *node = createNode(R_default, NULL); // Cria um nó auxiliar para o identificador
+                node->lexema = popLexema(listLexema);
 
-                $$->lexema = aux->lexema;
+                $$->lexema = node->lexema;
 
                 //printf("Pai depois: %s\n", $$->lexema->lexemaBuffer);
                 //printf("ID FUN RECONHECIDO ACABOU\n");
@@ -223,28 +218,30 @@
             {
                 //printf("PARAM RECONHECIDO\n");
                 $$ = $1;
-                ASTNode *aux = createNode(R_default, idLexema);
+                $$->type = R_param_int;
+                ASTNode *son = createNode(R_default, idLexema);
 
-                aux->lexema = popLexema(listLexema);
+                son->lexema = popLexema(listLexema);
                  
                 //printf("Pai: %s\n", $$->lexema->lexemaBuffer);
-                //printf("Filho aux 1 é: %s\n", aux->lexema->lexemaBuffer);
+                //printf("Filho son 1 é: %s\n", son->lexema->lexemaBuffer);
 
-                addSon($$, aux);
+                addSon($$, son);
                 //printf("PARAM RECONHECIDO ACABOOU\n");
             }
             | tipo_especificador TOKEN_ID TOKEN_OPENBRACKET TOKEN_CLOSEBRACKET 
             {
                 //printf("PARAM RECONHECIDO\n");
                 $$ = $1;
-                ASTNode *aux = createNode(R_default, idLexema);
+                $$->type = R_param_vet;
+                ASTNode *son = createNode(R_default, idLexema);
 
-                aux->lexema = popLexema(listLexema);
+                son->lexema = popLexema(listLexema);
 
                 //printf("Pai: %s\n", $$->lexema->lexemaBuffer);
-                //printf("Filho aux 1 é: %s\n", aux->lexema->lexemaBuffer);
+                //printf("Filho son 1 é: %s\n", son->lexema->lexemaBuffer);
 
-                addSon($$, aux);
+                addSon($$, son);
                 //printf("PARAM RECONHECIDO ACABOU\n");  
             };
 
@@ -335,12 +332,12 @@
 
         retorno_decl : TOKEN_RETURN TOKEN_SEMICOLON
             {
-                $$ = createNode(R_retorno_decl, returnLexema); // Usando returnLexema
+                $$ = createNode(R_retorno_decl_int, returnLexema); // Usando returnLexema
                 //printf("Pai: %s\n", returnLexema->lexemaBuffer);
             }
             | TOKEN_RETURN expressao TOKEN_SEMICOLON 
             {
-                $$ = createNode(R_retorno_decl, returnLexema); // Usando returnLexema
+                $$ = createNode(R_retorno_decl_void, returnLexema); // Usando returnLexema
                 //printf("Pai: %s\n", $$->lexema->lexemaBuffer);
                 //printf("Filho: %s\n", $2->lexema->lexemaBuffer);
 
@@ -362,29 +359,29 @@
         var : TOKEN_ID
             {
                 
-                $$ = createNode(R_var, idLexema); // Usando idLexema
+                $$ = createNode(R_var_id, idLexema); // Usando idLexema
 
-                ASTNode *aux = createNode(R_default, NULL);
+                ASTNode *son = createNode(R_default, NULL);
 
-                aux->lexema = popLexema(listLexema);
+                son->lexema = popLexema(listLexema);
 
                 //printf("$$ antes: %s\n", $$->lexema->lexemaBuffer);
 
-                $$->lexema = aux->lexema;
+                $$->lexema = son->lexema;
 
                 //printf("$$ depois: %s\n", $$->lexema->lexemaBuffer); 
             }
             | TOKEN_ID TOKEN_OPENBRACKET expressao TOKEN_CLOSEBRACKET 
             {
-                $$ = createNode(R_var, idLexema); // Usando idLexema
+                $$ = createNode(R_var_vet, idLexema); // Usando idLexema
 
-                ASTNode *aux = createNode(R_default, NULL);
+                ASTNode *son = createNode(R_default, NULL);
 
-                aux->lexema = popLexema(listLexema);
+                son->lexema = popLexema(listLexema);
 
                 //printf("$$ antes: %s\n", $$->lexema->lexemaBuffer);
 
-                $$->lexema = aux->lexema;
+                $$->lexema = son->lexema;
 
                 //printf("$$ depos: %s\n", $$->lexema->lexemaBuffer);
                 //printf("Filho: %s\n", $3->lexema->lexemaBuffer);
@@ -395,6 +392,7 @@
         simples_expressao : soma_expressao relacional soma_expressao
             {
                 $$ = $2; 
+                $$->type = R_simples_expressao;
                 //printf("Pai: %s\n", $$->lexema->lexemaBuffer);
                 //printf("Filho 1: %s\n", $1->lexema->lexemaBuffer);
                 addSon($$, $1);
@@ -414,6 +412,7 @@
         soma_expressao : soma_expressao soma termo
             {
                 $$ = $2;
+                $$->type = R_soma_expressao;
                 addSon($$, $1);
                 addSon($$, $3); 
             }
@@ -431,6 +430,7 @@
         termo : termo mult fator
             {
                 $$ = $2;
+                $$->type = R_termo;
                 addSon($$, $1);
                 addSon($$, $3);    
             }
@@ -438,10 +438,7 @@
 
         mult : TOKEN_MULTIPLY 
             {
-                $$ = createNode(R_mult, multiplyLexema);
-
-                
-                
+                $$ = createNode(R_mult, multiplyLexema);  
             }
             | TOKEN_DIVIDE 
             {
@@ -455,11 +452,11 @@
             {
                 $$ = createNode(R_fator, numLexema);
 
-                ASTNode *aux = createNode(R_default, NULL);
+                ASTNode *son = createNode(R_default, NULL);
 
-                aux->lexema = popLexema(listLexema);
+                son->lexema = popLexema(listLexema);
 
-                $$->lexema = aux->lexema;
+                $$->lexema = son->lexema;
             } 
             | ativacao { $$ = $1; }
             ;
@@ -467,6 +464,7 @@
         ativacao : fun_id TOKEN_LPAREN args TOKEN_RPAREN 
             {
                 $$ = $1;
+                $$->type = R_ativacao;
                 addSon($$, $3);           
             };
 
@@ -491,7 +489,6 @@
 %%
 
 
-
 void yyerror(char *s) 
 {
     fprintf(stderr, "ERRO SINTÁTICO: %s, No lexema: '%s', na linha: %d\n", s, ultimoLexema, ultimaLinha);
@@ -507,7 +504,10 @@ int yylex()
     static int count = 0; // Contador para chamadas de yylex
 
     // Checa se o final do arquivo foi atingido
-    if (final == 1 || final == -1) {
+    if (final == 1 || final == -1) 
+    {
+        
+
         return 0; // Retorna 0 para indicar o final do arquivo
     }
 

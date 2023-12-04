@@ -1,2 +1,2 @@
 #include "lexical.h"
-#include "sintatical.h"
+#include "tabelaSimbolos.h"

@@ -1,5 +1,4 @@
-#include "../h/funcs.h" // Inclui as declarações das funções que você definiu em funcs.h
-
+#include "../h/funcs.h" // Inclui as declarações das funções funcs.h
 int main(int argc, char *argv[])
 {
     // Verifica se o número correto de argumentos foi fornecido
@@ -27,7 +26,29 @@ int main(int argc, char *argv[])
     // analisadorSintatico();
     parse();
 
-    printf("\n\n----------------------------Analisador Semântico----------------------------\n\n");
+    if (final == 1)
+    {
+        printf("\n");
+        printf("\n\n----------------------------Analisador Sintática----------------------------\n\n");
+        printf("\n");
+        print_ast(raizDaArvore, 1);
+
+        printf("\n\n----------------------------Analisador Semântico----------------------------\n\n");
+
+        initHash();
+
+        pushTabela(R_fun_declaracao, 0, "input", "global", 1);
+        pushTabela(R_fun_declaracao, 1, "output", "global", 1);
+
+        searchTree(raizDaArvore, "global");
+
+        imprimirTabela();
+    }
+
+    if (final == -1)
+    {
+        printf("\n\nERRO NO ANALISADOR LÉXICO, CORRIJA O ERRO, RODE DE NOVO PARA PODER CONTINUAR COM O SINTÁTICO\n\n");
+    }
 
     // Libera a memória alocada para o buffer
     deallocate_buffer();
