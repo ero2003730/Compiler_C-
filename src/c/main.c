@@ -44,15 +44,12 @@ int main(int argc, char *argv[])
         printSemanticTable();
     }
 
-    if (final == -1)
-    {
-        printf("\n\nERRO NO ANALISADOR LÉXICO, CORRIJA O ERRO, RODE DE NOVO PARA PODER CONTINUAR COM O SINTÁTICO\n\n");
-    }
-
     // Libera a memória alocada para o buffer
     deallocate_buffer();
 
     deallocateNode(raizDaArvore);
+
+    freeTabela();
 
     // Fecha o arquivo
     fclose(file);

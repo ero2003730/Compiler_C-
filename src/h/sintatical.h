@@ -71,14 +71,29 @@ typedef struct LexemaList
     LexemaNode *top; // Ponteiro para o topo da lista
 } LexemaList;
 
-LexemaList *initLexemaList();                                  // Lista
-void printTree(ASTNode *node);                                 // Função para imprimir a arvore
-ASTNode *createNode(type nodeType, struct Lexema *lexemaInfo); // criar arvore
-void *addSibling(ASTNode *node, ASTNode *sibling);             // ADICIONA IRMAO
-void *addSon(ASTNode *parent, ASTNode *son);                   // filho
-void pushLexema(LexemaList *list, struct Lexema *lexema);      // lista
+// Inicializa uma nova lista de lexemas
+LexemaList *initLexemaList();
+
+// Cria um novo nó na Árvore Sintática Abstrata (AST) com um tipo específico e informações de lexema
+ASTNode *createNode(type nodeType, struct Lexema *lexemaInfo);
+
+// Adiciona um nó irmão (sibling) a um nó existente na AST
+void *addSibling(ASTNode *node, ASTNode *sibling);
+
+// Adiciona um nó filho a um nó pai na AST
+void *addSon(ASTNode *parent, ASTNode *son);
+
+// Adiciona um lexema à lista de lexemas
+void pushLexema(LexemaList *list, struct Lexema *lexema);
+
+// Imprime a estrutura da Árvore Sintática Abstrata (AST)
 void print_ast(ASTNode *root, int num);
+
+// Libera a memória alocada para um nó da AST
 void deallocateNode(ASTNode *node);
-struct Lexema *popLexema(LexemaList *list); // pop
-void analisadorSintatico();                 // print
-int parse();                                // Parser
+
+// Remove e retorna o lexema do topo da lista de lexemas (operação pop)
+struct Lexema *popLexema(LexemaList *list);
+
+// Executa a análise sintática (parsing) do programa
+int parse();

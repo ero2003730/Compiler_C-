@@ -89,7 +89,7 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 13 "./src/bison/bison.y"
+#line 14 "./src/bison/bison.y"
 
     struct Lexema *lexema;
     ASTNode *astNode;

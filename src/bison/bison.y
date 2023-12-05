@@ -10,7 +10,8 @@
     void yyerror(char *s);
 %}
 
-%union {
+%union 
+{
     struct Lexema *lexema;
     ASTNode *astNode;
 }
@@ -491,7 +492,7 @@
 
 void yyerror(char *s) 
 {
-    fprintf(stderr, "ERRO SINTÁTICO: %s, Lexema: '%s', na linha: %d\n", s, ultimoLexema, ultimaLinha);
+    fprintf(stderr, "\033[1;31mERRO SINTÁTICO: %s, Lexema: '%s', na linha: %d\033[0m\n", s, ultimoLexema, ultimaLinha);
 }
 
 int parse()
@@ -501,7 +502,6 @@ int parse()
 
 int yylex()
 {
-    static int count = 0; // Contador para chamadas de yylex
 
     // Checa se o final do arquivo foi atingido
     if (final == 1 || final == -1) 
@@ -535,6 +535,7 @@ int yylex()
             numLexema = &lexema[aux];
             pushLexema(listLexema, numLexema);
         }
+        
         else if (lexema[aux].token == 1) intLexema = &lexema[aux];
         else if (lexema[aux].token == 2) ifLexema = &lexema[aux];
         else if (lexema[aux].token == 3) returnLexema = &lexema[aux];

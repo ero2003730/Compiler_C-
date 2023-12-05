@@ -425,7 +425,7 @@ void get_token()
         // Logo não é um caractere pertencente a linguagem C-
         if (coluna == -1)
         {
-            printf("Erro: caractere: '%c', na linha %d não eh válido\n", c, lines);
+            printf("\033[1;31mErro: caractere: '%c', na linha %d não eh válido\n\033[0m", c, lines);
             final = -1;
             deallocateBST(root);
             return;
@@ -482,7 +482,7 @@ void get_token()
             // Se não encontrar o final do comentário, '*/' isso é um erro, logo printar erro
             if (!comentarioFechado)
             {
-                printf("Erro: Comentario aberto na linha %d, mas nao fechado antes do fim do arquivo\n", linhaComentario);
+                printf("\033[1;31mErro: Comentário aberto na linha %d, mas não fechado antes do fim do arquivo\n\033[0m", linhaComentario);
                 deallocateBST(root);
                 final = -1;
                 return;
@@ -567,7 +567,7 @@ void get_token()
     // '!' e não seguir de '='
     else if (novo_estado == 11)
     {
-        printf("Erro na linha %d: O caractere '!' foi encontrado, mas deve ser seguido imediatamente por um '=' para formar o operador '!=' válido.\n", lines);
+        printf("\033[1;31mErro na linha %d: O caractere '!' foi encontrado, mas deve ser seguido imediatamente por um '=' para formar o operador '!=' válido.\n\033[0m", lines);
         deallocateBST(root);
         final = -1;
         return;
