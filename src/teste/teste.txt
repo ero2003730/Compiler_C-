@@ -1,4 +1,4 @@
-int x[10];
+int pow[10];
 
 
 
@@ -46,14 +46,14 @@ void main(void)
     i = 0;
     while (i < 10)
     {
-        x[i] = input();
+        pow[i] = input();
         i = i + 1;
     }
-    sort(x,0,10);
+    sort(pow,0,10);
     i = 0;
     while (i < 10)
     {
-        output(x[i]);
+        output(pow[i]);
         i = i + 1;
     }
 }

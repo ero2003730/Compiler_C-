@@ -20,11 +20,25 @@ typedef struct tabelaSimbolos
 
 typedef tabelaSimbolos *TABELA;
 
-struct tabelaSimbolos *initTabela(char *scope, int dataType, char *ID, type typeId, int linha);
+struct tabelaSimbolos *allocateTabela(char *scope, int dataType, char *ID, type typeId, int linha);
 
-void initHash();
+void initTabela();
 
 void pushTabela(type typeId, int dataType, char *ID, char *scope, int linha);
+
+void handleVarDeclaration(ASTNode *node, char *auxScope);
+
+void handleFunctionDeclaration(ASTNode *node, char *auxScope);
+
+void handleVarIdDeclaration(ASTNode *node, char *scope);
+
+void handleVarVetDeclaration(ASTNode *node, char *scope);
+
+void handleFunctionActivation(ASTNode *node, char *scope);
+
+void handleExpression(ASTNode *node);
+
+int verifyErrors(struct tabelaSimbolos *tabelaAux, struct ASTNode *node, struct ASTNode *auxNode, const char *scope);
 
 void addLine(struct tabelaSimbolos *item, int lineToAdd);
 
@@ -38,7 +52,7 @@ void searchTree(ASTNode *node, char *scope);
 
 bool isValidType(type nodeType);
 
-int buscarIgual(ASTNode *node, int position, char *scope);
+int searchTabela(ASTNode *node, int position, char *scope);
 
 struct tabelaSimbolos *procuraTabelaExp(char *ID, char *scope, type type);
 
@@ -48,10 +62,8 @@ struct tabelaSimbolos *procuraTabela(char *ID, char *scope, type type);
 
 void removeTabela();
 
-struct tabelaSimbolos *searchTabela();
-
 void freeTabela();
 
-void printTabela();
+void printSemanticTable();
 
-unsigned longhash(char *str);
+unsigned getHash(char *str);

@@ -23,7 +23,6 @@ int main(int argc, char *argv[])
     listLexema = initLexemaList();
 
     printf("\n\n----------------------------Analisador Léxico----------------------------\n\n");
-    // analisadorSintatico();
     parse();
 
     if (final == 1)
@@ -35,14 +34,14 @@ int main(int argc, char *argv[])
 
         printf("\n\n----------------------------Analisador Semântico----------------------------\n\n");
 
-        initHash();
+        initTabela();
 
         pushTabela(R_fun_declaracao, 0, "input", "global", 1);
         pushTabela(R_fun_declaracao, 1, "output", "global", 1);
 
         searchTree(raizDaArvore, "global");
 
-        imprimirTabela();
+        printSemanticTable();
     }
 
     if (final == -1)
