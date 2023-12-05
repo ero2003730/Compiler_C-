@@ -491,7 +491,7 @@
 
 void yyerror(char *s) 
 {
-    fprintf(stderr, "ERRO SINTÁTICO: %s, No lexema: '%s', na linha: %d\n", s, ultimoLexema, ultimaLinha);
+    fprintf(stderr, "ERRO SINTÁTICO: %s, Lexema: '%s', na linha: %d\n", s, ultimoLexema, ultimaLinha);
 }
 
 int parse()

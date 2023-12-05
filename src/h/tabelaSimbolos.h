@@ -40,6 +40,8 @@ void handleExpression(ASTNode *node);
 
 int verifyErrors(struct tabelaSimbolos *tabelaAux, struct ASTNode *node, struct ASTNode *auxNode, const char *scope);
 
+const char *getDataTypeName(int dataType);
+
 void addLine(struct tabelaSimbolos *item, int lineToAdd);
 
 bool isDeclaracao(type nodeType);

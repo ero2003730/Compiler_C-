@@ -14,6 +14,7 @@ int final = 0;
 char *ultimoLexema = NULL; // Inicialize com NULL
 int ultimaLinha = 1;
 int linhaComentario = 1;
+int ultRegra = 0;
 
 // Função para alocar memória para o buffer
 void allocate_buffer()

@@ -6,44 +6,33 @@ void handleVarDeclaration(ASTNode *node, char *auxScope)
     if (searchTabela(node, 0, auxScope) == 1)
     {
         if (node->lexema->token == T_INT)
-        {
             pushTabela(node->type, 0, node->left->lexema->lexemaBuffer, auxScope, node->lexema->linha);
-        }
+
         else
-        {
             printf("Erro: declaração não é do tipo INT\n");
-        }
     }
 }
 
 void handleFunctionDeclaration(ASTNode *node, char *auxScope)
 {
     // Suponha que as funções searchTabela e pushTabela estejam definidas em algum lugar do seu código.
-    int auxTipo;
     ASTNode *nodeAux;
-
-    if (node->lexema->token == T_INT)
-        auxTipo = 0;
-    else if (node->lexema->token == T_VOID)
-        auxTipo = 1;
-    else
-        printf("Erro\n");
 
     strcpy(auxScope, node->middle->lexema->lexemaBuffer);
 
-    if (searchTabela(node, 1, auxScope) == 1)
-        pushTabela(node->type, auxTipo, node->middle->lexema->lexemaBuffer, auxScope, node->lexema->linha);
+    if (searchTabela(node, 1, node->middle->lexema->lexemaBuffer) == 1)
+        pushTabela(node->type, node->lexema->token, node->middle->lexema->lexemaBuffer, node->middle->lexema->lexemaBuffer, node->lexema->linha);
 
     if (node->left->type != R_params)
     {
         nodeAux = node->left;
         while (nodeAux)
         {
-            if (searchTabela(nodeAux, 0, auxScope) == 1)
+            if (searchTabela(nodeAux, 0, node->middle->lexema->lexemaBuffer) == 1)
             {
                 if (nodeAux->lexema->token == T_INT)
                 {
-                    strcpy(auxScope, node->middle->lexema->lexemaBuffer);
+                    strcpy(node->middle->lexema->lexemaBuffer, node->middle->lexema->lexemaBuffer);
                     pushTabela(nodeAux->type, 0, nodeAux->left->lexema->lexemaBuffer, auxScope, nodeAux->lexema->linha);
                 }
                 else
